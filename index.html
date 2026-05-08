@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="description" content="VV Studio Little — LEA transformă YouTube în cunoaștere. Datele tale rămân la tine.">
+<title>VV Studio Little · LEA Beta</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#080808;color:#fff;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;min-height:100vh;padding:0 0 60px;max-width:500px;margin:0 auto}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:0.5px solid rgba(255,255,255,0.06);position:sticky;top:0;background:rgba(8,8,8,0.95);backdrop-filter:blur(20px);z-index:10}
+.logo-top{font-size:15px;font-weight:600;letter-spacing:2px;color:#FFD700}
+.logo-top span{color:rgba(255,255,255,0.4);font-weight:400}
+.top-actions{display:flex;gap:8px}
+.icon-btn{background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);border-radius:10px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;transition:background 0.2s}
+.icon-btn:hover{background:rgba(255,255,255,0.1)}
+.hero{text-align:center;padding:32px 20px 24px}
+.hero-badge{font-size:11px;color:rgba(255,215,0,0.5);letter-spacing:2px;border:0.5px solid rgba(255,215,0,0.15);border-radius:20px;padding:5px 14px;display:inline-block;margin-bottom:16px}
+.hero-title{font-size:30px;font-weight:700;letter-spacing:-0.5px;line-height:1.25}
+.hero-title .gold{color:#FFD700}
+.hero-sub{font-size:13px;color:rgba(255,255,255,0.3);margin-top:10px;line-height:1.7}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 20px;margin-bottom:16px}
+.stat-card{background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.07);border-radius:14px;padding:14px 8px;text-align:center}
+.stat-num{font-size:22px;font-weight:600;color:#FFD700}
+.stat-label{font-size:10px;color:rgba(255,255,255,0.25);margin-top:3px;letter-spacing:0.5px}
+.section{padding:0 20px;margin-bottom:12px}
+.glass-card{background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:20px;padding:18px}
+.section-label{font-size:10px;font-weight:500;color:rgba(255,255,255,0.25);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+textarea{width:100%;background:rgba(0,0,0,0.4);border:0.5px solid rgba(255,255,255,0.08);border-radius:14px;color:#fff;font-size:14px;line-height:1.7;padding:14px;resize:none;min-height:150px;font-family:inherit;outline:none;transition:border-color 0.2s}
+textarea:focus{border-color:rgba(255,215,0,0.3)}
+textarea::placeholder{color:rgba(255,255,255,0.18)}
+.btn-gold{width:100%;background:#FFD700;color:#000;border:none;border-radius:14px;padding:16px;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:0.5px;transition:opacity 0.2s,transform 0.1s;margin-top:10px}
+.btn-gold:hover{opacity:0.92}
+.btn-gold:active{transform:scale(0.99)}
+.btn-gold:disabled{opacity:0.3;cursor:not-allowed}
+.actions-row{display:flex;gap:8px;margin-top:10px}
+.btn-ghost{flex:1;background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.1);border-radius:12px;color:rgba(255,255,255,0.6);padding:11px 8px;font-size:12px;cursor:pointer;transition:background 0.2s;font-family:inherit}
+.btn-ghost:hover{background:rgba(255,255,255,0.08)}
+.btn-ghost.active{color:#FFD700;border-color:rgba(255,215,0,0.3)}
+.result-area{background:rgba(0,0,0,0.3);border:0.5px solid rgba(255,215,0,0.1);border-radius:14px;padding:16px;font-size:14px;line-height:1.8;color:rgba(255,255,255,0.85);white-space:pre-wrap;display:none;margin-top:10px}
+.result-area.show{display:block}
+.eco-bar{background:rgba(255,215,0,0.04);border:0.5px solid rgba(255,215,0,0.1);border-radius:10px;padding:10px 14px;font-size:12px;color:rgba(255,215,0,0.55);display:none;margin-top:8px;line-height:1.6}
+.eco-bar.show{display:block}
+.loading-state{text-align:center;padding:24px;display:none}
+.loading-state.show{display:block}
+.pulse-row{display:flex;justify-content:center;gap:6px;margin-bottom:10px}
+.pulse-dot{width:7px;height:7px;background:#FFD700;border-radius:50%;animation:pulse 1.2s ease-in-out infinite}
+.pulse-dot:nth-child(2){animation-delay:0.2s}
+.pulse-dot:nth-child(3){animation-delay:0.4s}
+@keyframes pulse{0%,100%{opacity:0.2;transform:scale(0.7)}50%{opacity:1;transform:scale(1.1)}}
+.loading-text{font-size:12px;color:rgba(255,215,0,0.4);letter-spacing:1px}
+.error-box{background:rgba(255,60,60,0.05);border:0.5px solid rgba(255,60,60,0.2);border-radius:10px;padding:10px 14px;font-size:13px;color:rgba(255,100,100,0.75);display:none;margin-top:8px;line-height:1.6}
+.error-box.show{display:block}
+.history-item{padding:12px 0;border-bottom:0.5px solid rgba(255,255,255,0.05)}
+.history-item:last-child{border-bottom:none}
+.h-date{font-size:10px;color:rgba(255,215,0,0.3);margin-bottom:3px}
+.h-prev{font-size:13px;color:rgba(255,255,255,0.65);margin-bottom:3px}
+.h-words{font-size:11px;color:rgba(255,255,255,0.22)}
+.empty{text-align:center;padding:20px;font-size:13px;color:rgba(255,255,255,0.18)}
+.coffee-section{margin:0 20px 12px;background:rgba(255,215,0,0.03);border:0.5px solid rgba(255,215,0,0.1);border-radius:20px;padding:20px;text-align:center}
+.coffee-text{font-size:13px;color:rgba(255,255,255,0.35);line-height:1.7;margin-bottom:14px}
+.coffee-name{color:rgba(255,215,0,0.6);font-weight:500}
+.btn-coffee{background:transparent;border:0.5px solid rgba(255,215,0,0.3);border-radius:12px;color:#FFD700;padding:11px 28px;font-size:13px;cursor:pointer;transition:background 0.2s;font-family:inherit}
+.btn-coffee:hover{background:rgba(255,215,0,0.08)}
+.footer-promo{margin:0 20px 20px;background:rgba(255,215,0,0.03);border:0.5px solid rgba(255,215,0,0.12);border-radius:20px;padding:22px;text-align:center}
+.promo-eyebrow{font-size:10px;color:rgba(255,215,0,0.4);letter-spacing:2px;margin-bottom:8px}
+.promo-title{font-size:18px;font-weight:700;color:#FFD700;margin-bottom:8px}
+.promo-sub{font-size:13px;color:rgba(255,255,255,0.3);line-height:1.7;margin-bottom:16px}
+.promo-pills{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:16px}
+.pill{font-size:11px;color:rgba(255,215,0,0.5);border:0.5px solid rgba(255,215,0,0.15);border-radius:20px;padding:4px 12px}
+.btn-promo{background:#FFD700;color:#000;border:none;border-radius:12px;padding:13px 28px;font-size:14px;font-weight:700;cursor:pointer;transition:opacity 0.2s}
+.btn-promo:hover{opacity:0.9}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:100;display:none;align-items:flex-end;justify-content:center;padding:0 0 0 0}
+.overlay.show{display:flex}
+.sheet{background:#111;border-radius:24px 24px 0 0;padding:28px 20px 44px;width:100%;max-width:500px;border-top:0.5px solid rgba(255,255,255,0.1)}
+.sheet-handle{width:36px;height:4px;background:rgba(255,255,255,0.15);border-radius:2px;margin:0 auto 20px}
+.sheet-title{font-size:18px;font-weight:600;margin-bottom:4px}
+.sheet-sub{font-size:13px;color:rgba(255,255,255,0.3);margin-bottom:20px;line-height:1.6}
+.sheet input{width:100%;background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);border-radius:12px;color:#fff;font-size:14px;padding:13px;outline:none;font-family:inherit;margin-bottom:8px}
+.sheet input:focus{border-color:rgba(255,215,0,0.3)}
+.sheet-link{font-size:12px;color:rgba(255,215,0,0.5);text-decoration:none;display:flex;align-items:center;gap:4px;margin-bottom:20px}
+.sheet-actions{display:flex;gap:8px;margin-top:4px}
+.btn-save{flex:1;background:#FFD700;color:#000;border:none;border-radius:12px;padding:14px;font-size:14px;font-weight:700;cursor:pointer}
+.btn-cancel{flex:1;background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);border-radius:12px;color:rgba(255,255,255,0.5);padding:14px;font-size:14px;cursor:pointer;font-family:inherit}
+.key-status{font-size:12px;padding:7px 12px;border-radius:8px;display:inline-block;margin-bottom:16px}
+.key-ok{background:rgba(0,200,100,0.08);color:rgba(0,200,100,0.7)}
+.key-missing{background:rgba(255,100,100,0.08);color:rgba(255,100,100,0.6)}
+.usage-row{display:flex;justify-content:space-between;align-items:center;font-size:14px;padding:10px 0;border-bottom:0.5px solid rgba(255,255,255,0.05)}
+.usage-row:last-child{border-bottom:none}
+.usage-label{color:rgba(255,255,255,0.35)}
+.usage-val{color:#FFD700;font-weight:500}
+.divider{height:0.5px;background:rgba(255,255,255,0.05);margin:8px 0}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo-top">VV <span>STUDIO LITTLE</span></div>
+  <div class="top-actions">
+    <div class="icon-btn" onclick="openSettings()" title="Setări API">⚙️</div>
+    <div class="icon-btn" onclick="openUsage()" title="Statistici">📊</div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-badge">✦ BETA · SUVERANITATE DIGITALĂ</div>
+  <div class="hero-title"><span class="gold">LEA</span> transformă<br>YouTube în cunoaștere</div>
+  <div class="hero-sub">Datele tale rămân la tine. Zero cloud. Zero urmărire.<br>Powered by Gemini · Local Storage · VV Ecosystem</div>
+</div>
+
+<div class="stats-row">
+  <div class="stat-card">
+    <div class="stat-num" id="statSeeds">0</div>
+    <div class="stat-label">SEMINȚE</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num" id="statWords">0</div>
+    <div class="stat-label">CUVINTE</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num" id="statEco">0%</div>
+    <div class="stat-label">ECONOMIE</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="glass-card">
+    <div class="section-label">✦ Transcript YouTube</div>
+    <textarea id="transcriptIn" placeholder="Lipește transcriptul YouTube aici...&#10;&#10;Pe YouTube: video → ··· → Transcript → Copiază tot textul"></textarea>
+    <button class="btn-gold" id="transformBtn" onclick="transform()">✦ Transformă în Semințe</button>
+    <div class="error-box" id="errBox"></div>
+    <div class="loading-state" id="loadDiv">
+      <div class="pulse-row"><div class="pulse-dot"></div><div class="pulse-dot"></div><div class="pulse-dot"></div></div>
+      <div class="loading-text">LEA procesează semințele...</div>
+    </div>
+    <div class="result-area" id="resultArea"></div>
+    <div class="eco-bar" id="ecoBar"></div>
+    <div class="actions-row" id="actionsRow" style="display:none">
+      <button class="btn-ghost" onclick="copyResult()">📋 Copiază</button>
+      <button class="btn-ghost" id="voiceBtn" onclick="speakResult()">🔊 Ascultă LEA</button>
+      <button class="btn-ghost" onclick="shareResult()">↗ Trimite</button>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="glass-card">
+    <div class="section-label">✦ Istoric local</div>
+    <div id="historyList"><div class="empty">Nicio sămânță salvată încă</div></div>
+    <div class="divider"></div>
+    <button class="btn-ghost" style="width:100%;margin-top:8px;color:rgba(255,80,80,0.5);border-color:rgba(255,80,80,0.12)" onclick="clearAll()">✕ Șterge tot istoricul</button>
+  </div>
+</div>
+
+<div class="coffee-section">
+  <div class="coffee-text">
+    Sistemul e gratuit — rulează local pe dispozitivul tău.<br>
+    <span class="coffee-name">Dacă LEA ți-a salvat azi 30 de minute,<br>dă-mi și mie de o cafea să lucrez la VV Hybrid. ☕<br>Suntem în asta împreună.</span>
+  </div>
+  <button class="btn-coffee" onclick="window.location.href='onclick="window.location.href='sustine.html''">☕ Trimite o cafea Arhitectului</button>
+</div>
+
+<div class="footer-promo">
+  <div class="promo-eyebrow">COMING SOON · 2025</div>
+  <div class="promo-title">VV Hybrid Universe</div>
+  <div class="promo-sub">Ecosistemul digital al viitorului unde fiecare cetățean contează și are voce. LEA este extensia creierului tău — misiuni reale în oraș, date complet locale, inteligență hibridă în buzunarul tău.</div>
+  <div class="promo-pills">
+    <span class="pill">✦ Misiuni urbane</span>
+    <span class="pill">✦ Date locale</span>
+    <span class="pill">✦ AI hibrid</span>
+    <span class="pill">✦ VV Coins</span>
+    <span class="pill">✦ Comunitate P2P</span>
+  </div>
+  <button class="btn-promo" onclick="window.location.href='https://github.com/VV-TECHNOLOGIES'">✦ Descoperă VV Ecosystem</button>
+</div>
+
+<!-- Settings Sheet -->
+<div class="overlay" id="settingsOverlay" onclick="if(event.target===this)closeSettings()">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">⚙️ Setări LEA</div>
+    <div class="sheet-sub">Cheia ta Gemini rămâne salvată doar pe dispozitivul tău. Noi nu o vedem niciodată. Fiecare utilizator este responsabil de cheia proprie.</div>
+    <input type="password" id="apiKeyInput" placeholder="Cheia ta Gemini API (AIza...)" autocomplete="off" />
+    <a class="sheet-link" href="https://aistudio.google.com/app/apikey" target="_blank">→ Obține cheia gratuită de pe Google AI Studio ↗</a>
+    <div id="keyStatus"></div>
+    <div class="sheet-actions">
+      <button class="btn-save" onclick="saveKey()">✓ Salvează cheia</button>
+      <button class="btn-cancel" onclick="closeSettings()">Anulează</button>
+    </div>
+  </div>
+</div>
+
+<!-- Usage Sheet -->
+<div class="overlay" id="usageOverlay" onclick="if(event.target===this)closeUsage()">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">📊 Statistici locale</div>
+    <div class="sheet-sub">Toate datele calculate local pe dispozitivul tău.</div>
+    <div id="usageContent"></div>
+    <div style="margin-top:20px">
+      <button class="btn-cancel" style="width:100%" onclick="closeUsage()">Închide</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const SK='vv_studio_v2';
+const UK='vv_gemini_key';
+
+function getData(){
+  try{return JSON.parse(localStorage.getItem(SK))||{history:[],totalWords:0,totalOriginal:0,sessions:0}}
+  catch(e){return{history:[],totalWords:0,totalOriginal:0,sessions:0}}
+}
+function saveData(d){localStorage.setItem(SK,JSON.stringify(d))}
+function getKey(){return localStorage.getItem(UK)||''}
+
+function updateStats(){
+  const d=getData();
+  document.getElementById('statSeeds').textContent=d.sessions||0;
+  document.getElementById('statWords').textContent=(d.totalWords||0).toLocaleString('ro-RO');
+  const eco=d.totalOriginal>0?Math.round((1-d.totalWords/d.totalOriginal)*100):0;
+  document.getElementById('statEco').textContent=eco+'%';
+}
+
+function renderHistory(){
+  const d=getData();
+  const el=document.getElementById('historyList');
+  if(!d.history||!d.history.length){
+    el.innerHTML='<div class="empty">Nicio sămânță salvată încă</div>';
+    return;
+  }
+  el.innerHTML=d.history.slice(0,10).map(h=>`
+    <div class="history-item">
+      <div class="h-date">${h.date}</div>
+      <div class="h-prev">${h.preview}</div>
+      <div class="h-words">✦ ${h.resultWords} cuvinte generate · economisit ${h.eco}%</div>
+    </div>`).join('');
+}
+
+async function transform(){
+  const txt=document.getElementById('transcriptIn').value.trim();
+  const btn=document.getElementById('transformBtn');
+  const err=document.getElementById('errBox');
+  const load=document.getElementById('loadDiv');
+  const result=document.getElementById('resultArea');
+  const eco=document.getElementById('ecoBar');
+  const acts=document.getElementById('actionsRow');
+
+  err.className='error-box';
+  if(!txt){
+    err.textContent='Lipește un transcript înainte să transformi în semințe.';
+    err.className='error-box show';return;
+  }
+  if(txt.length<50){
+    err.textContent='Transcriptul e prea scurt. Adaugă mai mult text.';
+    err.className='error-box show';return;
+  }
+
+  const key=getKey();
+  if(!key){
+    err.innerHTML='Lipsește cheia API Gemini. Apasă ⚙️ sus și adaugă cheia gratuită.<br><a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:rgba(255,215,0,0.6);font-size:12px">→ Obține cheia gratuită ↗</a>';
+    err.className='error-box show';return;
+  }
+
+  btn.disabled=true;
+  load.className='loading-state show';
+  result.className='result-area';
+  eco.className='eco-bar';
+  acts.style.display='none';
+
+  try{
+    const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        contents:[{parts:[{text:`Ești LEA, asistentul Arhitectului VV Technologies. Transformă acest transcript YouTube în Semințe de Cunoaștere. Fii direct, util, fără introduceri inutile. Răspunde în română.
+
+Format obligatoriu:
+🌱 ESENȚA
+(1-2 propoziții despre ce e videoul)
+
+💡 SEMINȚE CHEIE
+• (idee 1)
+• (idee 2)
+• (idee 3)
+• (idee 4 dacă e relevant)
+
+⚡ ACȚIUNEA LEA
+(1 lucru concret pe care îl poți face azi cu aceste informații)
+
+Transcript:
+${txt.substring(0,4000)}`}]}]
+      })
+    });
+
+    const data=await res.json();
+    if(data.error)throw new Error(data.error.message||'Eroare Gemini API');
+
+    const text=data.candidates[0].content.parts[0].text;
+    result.textContent=text;
+    result.className='result-area show';
+    acts.style.display='flex';
+
+    const origW=txt.split(/\s+/).length;
+    const resW=text.split(/\s+/).length;
+    const saved=Math.max(0,Math.round((1-resW/origW)*100));
+    eco.textContent=`✦ Original: ${origW} cuvinte → Semințe: ${resW} cuvinte · Timp economisit: ~${saved}%`;
+    eco.className='eco-bar show';
+
+    const d=getData();
+    d.sessions=(d.sessions||0)+1;
+    d.totalWords=(d.totalWords||0)+resW;
+    d.totalOriginal=(d.totalOriginal||0)+origW;
+    d.history=d.history||[];
+    d.history.unshift({
+      date:new Date().toLocaleString('ro-RO'),
+      preview:txt.substring(0,80)+'...',
+      resultWords:resW,
+      eco:saved,
+      result:text
+    });
+    if(d.history.length>20)d.history.pop();
+    saveData(d);
+    updateStats();
+    renderHistory();
+
+  }catch(e){
+    let msg='Eroare la procesare. ';
+    if(e.message&&e.message.includes('API_KEY'))msg+='Cheia API e invalidă.';
+    else if(e.message&&e.message.includes('quota'))msg+='Ai atins limita zilnică gratuită Gemini.';
+    else msg+=e.message||'Verifică conexiunea.';
+    err.textContent=msg;
+    err.className='error-box show';
+  }finally{
+    btn.disabled=false;
+    load.className='loading-state';
+  }
+}
+
+function copyResult(){
+  const txt=document.getElementById('resultArea').textContent;
+  if(!txt)return;
+  navigator.clipboard.writeText(txt).then(()=>{
+    const btn=document.querySelector('#actionsRow .btn-ghost');
+    const orig=btn.textContent;
+    btn.textContent='✓ Copiat!';
+    setTimeout(()=>btn.textContent=orig,2000);
+  }).catch(()=>{
+    const ta=document.createElement('textarea');
+    ta.value=txt;document.body.appendChild(ta);
+    ta.select();document.execCommand('copy');
+    document.body.removeChild(ta);
+  });
+}
+
+let speaking=false;
+function speakResult(){
+  const txt=document.getElementById('resultArea').textContent;
+  const btn=document.getElementById('voiceBtn');
+  if(!txt)return;
+  if(speaking){
+    window.speechSynthesis.cancel();
+    speaking=false;
+    btn.textContent='🔊 Ascultă LEA';
+    btn.classList.remove('active');
+    return;
+  }
+  const u=new SpeechSynthesisUtterance(txt);
+  u.lang='ro-RO';u.rate=0.95;u.pitch=1;
+  u.onend=()=>{speaking=false;btn.textContent='🔊 Ascultă LEA';btn.classList.remove('active')};
+  u.onerror=()=>{speaking=false;btn.textContent='🔊 Ascultă LEA';btn.classList.remove('active')};
+  window.speechSynthesis.speak(u);
+  speaking=true;
+  btn.textContent='⏹ Oprește';
+  btn.classList.add('active');
+}
+
+function shareResult(){
+  const txt=document.getElementById('resultArea').textContent;
+  if(!txt)return;
+  if(navigator.share){
+    navigator.share({title:'Semințe VV Studio',text:txt});
+  } else {
+    copyResult();
+    alert('Conținut copiat! Poți să îl lipești unde vrei.');
+  }
+}
+
+function openSettings(){
+  const k=getKey();
+  document.getElementById('apiKeyInput').value=k;
+  const s=document.getElementById('keyStatus');
+  s.innerHTML=k
+    ?'<div class="key-status key-ok">✓ Cheie salvată și activă</div>'
+    :'<div class="key-status key-missing">⚠ Nicio cheie — LEA e dezactivată</div>';
+  document.getElementById('settingsOverlay').className='overlay show';
+}
+function closeSettings(){document.getElementById('settingsOverlay').className='overlay'}
+function saveKey(){
+  const k=document.getElementById('apiKeyInput').value.trim();
+  if(k){
+    localStorage.setItem(UK,k);
+    const err=document.getElementById('errBox');
+    err.className='error-box';
+  }
+  closeSettings();
+}
+
+function openUsage(){
+  const d=getData();
+  const eco=d.totalOriginal>0?Math.round((1-d.totalWords/d.totalOriginal)*100):0;
+  const storageKB=Math.round(JSON.stringify(d).length/1024*10)/10;
+  document.getElementById('usageContent').innerHTML=`
+    <div class="usage-row"><span class="usage-label">Semințe generate</span><span class="usage-val">${d.sessions||0}</span></div>
+    <div class="usage-row"><span class="usage-label">Cuvinte procesate total</span><span class="usage-val">${(d.totalOriginal||0).toLocaleString('ro-RO')}</span></div>
+    <div class="usage-row"><span class="usage-label">Cuvinte în semințe</span><span class="usage-val">${(d.totalWords||0).toLocaleString('ro-RO')}</span></div>
+    <div class="usage-row"><span class="usage-label">Economie medie timp</span><span class="usage-val">${eco}%</span></div>
+    <div class="usage-row"><span class="usage-label">Stocare locală folosită</span><span class="usage-val">${storageKB} KB</span></div>
+    <div class="usage-row"><span class="usage-label">Cheie API salvată</span><span class="usage-val">${getKey()?'✓ Da':'✗ Nu'}</span></div>
+  `;
+  document.getElementById('usageOverlay').className='overlay show';
+}
+function closeUsage(){document.getElementById('usageOverlay').className='overlay'}
+
+function clearAll(){
+  if(confirm('Ștergi toată memoria locală VV Studio? Acțiunea e ireversibilă.')){
+    localStorage.removeItem(SK);
+    document.getElementById('transcriptIn').value='';
+    document.getElementById('resultArea').className='result-area';
+    document.getElementById('actionsRow').style.display='none';
+    document.getElementById('ecoBar').className='eco-bar';
+    updateStats();
+    renderHistory();
+  }
+}
+
+updateStats();
+renderHistory();
+
+if(!getKey()){
+  const err=document.getElementById('errBox');
+  err.innerHTML='👋 Prima utilizare? Apasă ⚙️ sus și adaugă cheia gratuită Gemini pentru a activa LEA.<br><a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:rgba(255,215,0,0.5);font-size:12px;display:inline-block;margin-top:4px">→ Obține cheia gratuită de pe Google AI Studio ↗</a>';
+  err.className='error-box show';
+}
+</script>
+</body>
+</html>
