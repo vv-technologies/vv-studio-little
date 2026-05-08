@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Susține Arhitectul VV</title>
+    <style>
+        body { background: #080808; color: #fff; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .card { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,215,0,0.2); padding: 30px; border-radius: 24px; text-align: center; max-width: 400px; width: 90%; backdrop-filter: blur(20px); }
+        h1 { color: #FFD700; font-size: 24px; margin-bottom: 10px; }
+        p { color: rgba(255,255,255,0.5); font-size: 14px; line-height: 1.6; }
+        .iban-box { background: rgba(0,0,0,0.4); padding: 15px; border-radius: 12px; border: 1px dashed rgba(255,215,0,0.3); margin: 20px 0; cursor: pointer; position: relative; }
+        .iban-text { font-family: monospace; color: #FFD700; font-size: 16px; word-break: break-all; }
+        .copy-hint { font-size: 10px; color: rgba(255,215,0,0.5); margin-top: 5px; text-transform: uppercase; }
+        .bank-badge { background: #111; color: #fff; padding: 5px 12px; border-radius: 50px; font-size: 12px; border: 0.5px solid #333; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="bank-badge">SALT BANK</div>
+        <h1>Cinstește Arhitectul</h1>
+        <p>Dacă LEA ți-a salvat timp astăzi, poți susține dezvoltarea Universului VV printr-un transfer direct.</p>
+        
+        <div class="iban-box" onclick="copyIBAN()">
+            <div class="iban-text" id="iban">RO98ROIN4021D97CHECQLBSC</div>
+            <div class="copy-hint" id="hint">Apasă pentru a copia IBAN-ul</div>
+        </div>
+
+        <p style="font-size: 12px;">Nume Beneficiar: <strong>NUMELE TĂU COMPLET</strong></p>
+        <button onclick="window.location.href='index.html'" style="background:none; border:none; color:#555; cursor:pointer; margin-top:20px; font-size:12px;">← Înapoi la aplicație</button>
+    </div>
+
+    <script>
+        function copyIBAN() {
+            const iban = document.getElementById('iban').innerText;
+            navigator.clipboard.writeText(iban);
+            document.getElementById('hint').innerText = "✓ COPIAT ÎN CLIPBOARD";
+            setTimeout(() => { document.getElementById('hint').innerText = "Apasă pentru a copia IBAN-ul"; }, 2000);
+        }
+    </script>
+</body>
+</html>
