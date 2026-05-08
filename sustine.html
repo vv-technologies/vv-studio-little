@@ -3,31 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Susține Arhitectul VV</title>
+    <title>Susținere Proiect · VV Ecosystem</title>
     <style>
-        body { background: #080808; color: #fff; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .card { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,215,0,0.2); padding: 30px; border-radius: 24px; text-align: center; max-width: 400px; width: 90%; backdrop-filter: blur(20px); }
-        h1 { color: #FFD700; font-size: 24px; margin-bottom: 10px; }
-        p { color: rgba(255,255,255,0.5); font-size: 14px; line-height: 1.6; }
-        .iban-box { background: rgba(0,0,0,0.4); padding: 15px; border-radius: 12px; border: 1px dashed rgba(255,215,0,0.3); margin: 20px 0; cursor: pointer; position: relative; }
-        .iban-text { font-family: monospace; color: #FFD700; font-size: 16px; word-break: break-all; }
-        .copy-hint { font-size: 10px; color: rgba(255,215,0,0.5); margin-top: 5px; text-transform: uppercase; }
-        .bank-badge { background: #111; color: #fff; padding: 5px 12px; border-radius: 50px; font-size: 12px; border: 0.5px solid #333; }
+        body { background: #080808; color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .card { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,215,0,0.25); padding: 35px; border-radius: 28px; text-align: center; max-width: 420px; width: 90%; backdrop-filter: blur(25px); box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
+        
+        .ceo-badge { background: linear-gradient(135deg, #1a1a1a, #000); color: #FFD700; padding: 6px 14px; border-radius: 50px; font-size: 10px; font-weight: 700; letter-spacing: 2px; border: 0.5px solid rgba(255,215,0,0.3); display: inline-block; margin-bottom: 20px; text-transform: uppercase; }
+        
+        h1 { color: #fff; font-size: 26px; margin-bottom: 8px; font-weight: 800; }
+        .subtitle { color: rgba(255,255,255,0.4); font-size: 13px; margin-bottom: 25px; line-height: 1.5; }
+
+        .iban-box { background: rgba(0,0,0,0.5); padding: 20px; border-radius: 18px; border: 1px dashed rgba(255,215,0,0.4); margin: 20px 0; cursor: pointer; transition: 0.3s; }
+        .iban-box:hover { background: rgba(255,215,0,0.02); border-style: solid; }
+        .iban-label { font-size: 10px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .iban-text { font-family: 'SF Mono', 'Fira Code', monospace; color: #FFD700; font-size: 17px; font-weight: 600; letter-spacing: 1px; }
+        .copy-hint { font-size: 10px; color: rgba(255,215,0,0.6); margin-top: 10px; font-weight: 600; }
+
+        .info-row { text-align: left; background: rgba(255,255,255,0.02); padding: 15px; border-radius: 14px; margin-bottom: 10px; border: 0.5px solid rgba(255,255,255,0.05); }
+        .info-label { font-size: 10px; color: rgba(255,255,255,0.3); text-transform: uppercase; margin-bottom: 4px; }
+        .info-val { font-size: 14px; color: #fff; font-weight: 500; }
+
+        .alert-box { background: rgba(255,215,0,0.05); border: 0.5px solid rgba(255,215,0,0.2); padding: 12px; border-radius: 12px; margin-top: 20px; text-align: left; }
+        .alert-text { font-size: 12px; color: rgba(255,215,0,0.8); line-height: 1.5; }
+
+        .privacy-footer { margin-top: 30px; font-size: 11px; color: rgba(255,255,255,0.2); line-height: 1.5; }
+        .btn-back { background: none; border: none; color: rgba(255,255,255,0.3); cursor: pointer; margin-top: 25px; font-size: 12px; transition: 0.3s; }
+        .btn-back:hover { color: #fff; }
     </style>
 </head>
 <body>
     <div class="card">
-        <div class="bank-badge">SALT BANK</div>
-        <h1>Cinstește Arhitectul</h1>
-        <p>Dacă LEA ți-a salvat timp astăzi, poți susține dezvoltarea Universului VV printr-un transfer direct.</p>
+        <div class="ceo-badge">Arhitect Fondator & CEO</div>
+        <h1>Contribuie la Evoluție</h1>
+        <p class="subtitle">Susține dezvoltarea ecosistemului VV Hybrid. Fiecare transfer este o investiție în independența ta digitală.</p>
         
-        <div class="iban-box" onclick="copyIBAN()">
-            <div class="iban-text" id="iban">RO98ROIN4021D97CHECQLBSC</div>
-            <div class="copy-hint" id="hint">Apasă pentru a copia IBAN-ul</div>
+        <div class="info-row">
+            <div class="info-label">Beneficiar</div>
+            <div class="info-val">CONSTANTIN-COSMIN TOMA</div>
         </div>
 
-        <p style="font-size: 12px;">Nume Beneficiar: <strong>NUMELE TĂU COMPLET</strong></p>
-        <button onclick="window.location.href='index.html'" style="background:none; border:none; color:#555; cursor:pointer; margin-top:20px; font-size:12px;">← Înapoi la aplicație</button>
+        <div class="info-row">
+            <div class="info-label">Banca</div>
+            <div class="info-val">SALT BANK (ROMÂNIA)</div>
+        </div>
+
+        <div class="iban-box" onclick="copyIBAN()">
+            <div class="iban-label">IBAN (Apasă pentru copiere)</div>
+            <div class="iban-text" id="iban">RO98ROIN4021D97CHECQLBSC</div>
+            <div class="copy-hint" id="hint">CLICK PENTRU COPY</div>
+        </div>
+
+        <div class="alert-box">
+            <div class="alert-text">
+                ⚠️ <strong>IMPORTANT:</strong> Te rugăm să scrii la detalii transfer / explicații: <br>
+                <span style="color: #fff; font-weight: bold;">Susținere proiect</span>
+            </div>
+        </div>
+
+        <div class="privacy-footer">
+            Confidențialitate Garantată • Universul VV 2026<br>
+            Transferul este o donație voluntară pentru dezvoltarea software local.
+        </div>
+
+        <button onclick="window.location.href='index.html'" class="btn-back">← Revenire la centrul de comandă</button>
     </div>
 
     <script>
@@ -35,7 +73,11 @@
             const iban = document.getElementById('iban').innerText;
             navigator.clipboard.writeText(iban);
             document.getElementById('hint').innerText = "✓ COPIAT ÎN CLIPBOARD";
-            setTimeout(() => { document.getElementById('hint').innerText = "Apasă pentru a copia IBAN-ul"; }, 2000);
+            document.getElementById('hint').style.color = "#00ff88";
+            setTimeout(() => { 
+                document.getElementById('hint').innerText = "CLICK PENTRU COPY"; 
+                document.getElementById('hint').style.color = "rgba(255,215,0,0.6)";
+            }, 2000);
         }
     </script>
 </body>
