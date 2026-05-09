@@ -3,444 +3,962 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<meta name="description" content="VV Studio Little — LEA transformă YouTube în cunoaștere. Datele tale rămân la tine.">
-<title>VV Studio Little · LEA Beta</title>
+<meta name="theme-color" content="#050505">
+<meta name="description" content="LEA — inteligența urbană hibridă. Transformă YouTube în cunoaștere. Traduce orice video. Economisește timp, bani și spațiu de stocare.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="VV LEA">
+<link rel="manifest" href="#" id="manifestLink">
+<title>VV LEA · Inteligența Hibridă</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#080808;color:#fff;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;min-height:100vh;padding:0 0 60px;max-width:500px;margin:0 auto}
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:0.5px solid rgba(255,255,255,0.06);position:sticky;top:0;background:rgba(8,8,8,0.95);backdrop-filter:blur(20px);z-index:10}
-.logo-top{font-size:15px;font-weight:600;letter-spacing:2px;color:#E5E5E5}
-.logo-top span{color:rgba(255,255,255,0.4);font-weight:400}
-.top-actions{display:flex;gap:8px}
-.icon-btn{background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);border-radius:10px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;transition:background 0.2s}
-.icon-btn:hover{background:rgba(255,255,255,0.1)}
-.hero{text-align:center;padding:32px 20px 24px}
-.hero-badge{font-size:11px;color:rgba(255,215,0,0.5);letter-spacing:2px;border:0.5px solid rgba(255,215,0,0.15);border-radius:20px;padding:5px 14px;display:inline-block;margin-bottom:16px}
-.hero-title{font-size:30px;font-weight:700;letter-spacing:-0.5px;line-height:1.25}
-.hero-title .gold{color:#FFD700}
-.hero-sub{font-size:13px;color:rgba(255,255,255,0.3);margin-top:10px;line-height:1.7}
-.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 20px;margin-bottom:16px}
-.stat-card{background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.07);border-radius:14px;padding:14px 8px;text-align:center}
-.stat-num{font-size:22px;font-weight:600;color:#FFD700}
-.stat-label{font-size:10px;color:rgba(255,255,255,0.25);margin-top:3px;letter-spacing:0.5px}
-.section{padding:0 20px;margin-bottom:12px}
-.glass-card{background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:20px;padding:18px}
-.section-label{font-size:10px;font-weight:500;color:rgba(255,255,255,0.25);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
-textarea{width:100%;background:rgba(0,0,0,0.4);border:0.5px solid rgba(255,255,255,0.08);border-radius:14px;color:#fff;font-size:14px;line-height:1.7;padding:14px;resize:none;min-height:150px;font-family:inherit;outline:none;transition:border-color 0.2s}
-textarea:focus{border-color:rgba(255,215,0,0.3)}
-textarea::placeholder{color:rgba(255,255,255,0.18)}
-.btn-gold{width:100%;background:#FFD700;color:#000;border:none;border-radius:14px;padding:16px;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:0.5px;transition:opacity 0.2s,transform 0.1s;margin-top:10px}
-.btn-gold:hover{opacity:0.92}
-.btn-gold:active{transform:scale(0.99)}
-.btn-gold:disabled{opacity:0.3;cursor:not-allowed}
-.actions-row{display:flex;gap:8px;margin-top:10px}
-.btn-ghost{flex:1;background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.1);border-radius:12px;color:rgba(255,255,255,0.6);padding:11px 8px;font-size:12px;cursor:pointer;transition:background 0.2s;font-family:inherit}
-.btn-ghost:hover{background:rgba(255,255,255,0.08)}
-.btn-ghost.active{color:#FFD700;border-color:rgba(255,215,0,0.3)}
-.result-area{background:rgba(0,0,0,0.3);border:0.5px solid rgba(255,215,0,0.1);border-radius:14px;padding:16px;font-size:14px;line-height:1.8;color:rgba(255,255,255,0.85);white-space:pre-wrap;display:none;margin-top:10px}
-.result-area.show{display:block}
-.eco-bar{background:rgba(255,215,0,0.04);border:0.5px solid rgba(255,215,0,0.1);border-radius:10px;padding:10px 14px;font-size:12px;color:rgba(255,215,0,0.55);display:none;margin-top:8px;line-height:1.6}
-.eco-bar.show{display:block}
-.loading-state{text-align:center;padding:24px;display:none}
-.loading-state.show{display:block}
-.pulse-row{display:flex;justify-content:center;gap:6px;margin-bottom:10px}
-.pulse-dot{width:7px;height:7px;background:#FFD700;border-radius:50%;animation:pulse 1.2s ease-in-out infinite}
-.pulse-dot:nth-child(2){animation-delay:0.2s}
-.pulse-dot:nth-child(3){animation-delay:0.4s}
-@keyframes pulse{0%,100%{opacity:0.2;transform:scale(0.7)}50%{opacity:1;transform:scale(1.1)}}
-.loading-text{font-size:12px;color:rgba(255,215,0,0.4);letter-spacing:1px}
-.error-box{background:rgba(255,60,60,0.05);border:0.5px solid rgba(255,60,60,0.2);border-radius:10px;padding:10px 14px;font-size:13px;color:rgba(255,100,100,0.75);display:none;margin-top:8px;line-height:1.6}
-.error-box.show{display:block}
-.history-item{padding:12px 0;border-bottom:0.5px solid rgba(255,255,255,0.05)}
-.history-item:last-child{border-bottom:none}
-.h-date{font-size:10px;color:rgba(255,215,0,0.3);margin-bottom:3px}
-.h-prev{font-size:13px;color:rgba(255,255,255,0.65);margin-bottom:3px}
-.h-words{font-size:11px;color:rgba(255,255,255,0.22)}
-.empty{text-align:center;padding:20px;font-size:13px;color:rgba(255,255,255,0.18)}
-.coffee-section{margin:0 20px 12px;background:rgba(255,215,0,0.03);border:0.5px solid rgba(255,215,0,0.1);border-radius:20px;padding:20px;text-align:center}
-.coffee-text{font-size:13px;color:rgba(255,255,255,0.35);line-height:1.7;margin-bottom:14px}
-.coffee-name{color:rgba(255,215,0,0.6);font-weight:500}
-.btn-coffee{background:transparent;border:0.5px solid rgba(255,215,0,0.3);border-radius:12px;color:#FFD700;padding:11px 28px;font-size:13px;cursor:pointer;transition:background 0.2s;font-family:inherit}
-.btn-coffee:hover{background:rgba(255,215,0,0.08)}
-.footer-promo{margin:0 20px 20px;background:rgba(255,215,0,0.03);border:0.5px solid rgba(255,215,0,0.12);border-radius:20px;padding:22px;text-align:center}
-.promo-eyebrow{font-size:10px;color:rgba(255,215,0,0.4);letter-spacing:2px;margin-bottom:8px}
-.promo-title{font-size:18px;font-weight:700;color:#FFD700;margin-bottom:8px}
-.promo-sub{font-size:13px;color:rgba(255,255,255,0.3);line-height:1.7;margin-bottom:16px}
-.promo-pills{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:16px}
-.pill{font-size:11px;color:rgba(255,215,0,0.5);border:0.5px solid rgba(255,215,0,0.15);border-radius:20px;padding:4px 12px}
-.btn-promo{background:#FFD700;color:#000;border:none;border-radius:12px;padding:13px 28px;font-size:14px;font-weight:700;cursor:pointer;transition:opacity 0.2s}
-.btn-promo:hover{opacity:0.9}
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:100;display:none;align-items:flex-end;justify-content:center;padding:0 0 0 0}
-.overlay.show{display:flex}
-.sheet{background:#111;border-radius:24px 24px 0 0;padding:28px 20px 44px;width:100%;max-width:500px;border-top:0.5px solid rgba(255,255,255,0.1)}
-.sheet-handle{width:36px;height:4px;background:rgba(255,255,255,0.15);border-radius:2px;margin:0 auto 20px}
-.sheet-title{font-size:18px;font-weight:600;margin-bottom:4px}
-.sheet-sub{font-size:13px;color:rgba(255,255,255,0.3);margin-bottom:20px;line-height:1.6}
-.sheet input{width:100%;background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);border-radius:12px;color:#fff;font-size:14px;padding:13px;outline:none;font-family:inherit;margin-bottom:8px}
-.sheet input:focus{border-color:rgba(255,215,0,0.3)}
-.sheet-link{font-size:12px;color:rgba(255,215,0,0.5);text-decoration:none;display:flex;align-items:center;gap:4px;margin-bottom:20px}
-.sheet-actions{display:flex;gap:8px;margin-top:4px}
-.btn-save{flex:1;background:#FFD700;color:#000;border:none;border-radius:12px;padding:14px;font-size:14px;font-weight:700;cursor:pointer}
-.btn-cancel{flex:1;background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);border-radius:12px;color:rgba(255,255,255,0.5);padding:14px;font-size:14px;cursor:pointer;font-family:inherit}
-.key-status{font-size:12px;padding:7px 12px;border-radius:8px;display:inline-block;margin-bottom:16px}
-.key-ok{background:rgba(0,200,100,0.08);color:rgba(0,200,100,0.7)}
-.key-missing{background:rgba(255,100,100,0.08);color:rgba(255,100,100,0.6)}
-.usage-row{display:flex;justify-content:space-between;align-items:center;font-size:14px;padding:10px 0;border-bottom:0.5px solid rgba(255,255,255,0.05)}
-.usage-row:last-child{border-bottom:none}
-.usage-label{color:rgba(255,255,255,0.35)}
-.usage-val{color:#FFD700;font-weight:500}
-.divider{height:0.5px;background:rgba(255,255,255,0.05);margin:8px 0}
+:root{
+  --bg:#050505;
+  --s1:#0a0a0a;
+  --s2:#0f0f0f;
+  --gold:#C9A84C;
+  --gold2:rgba(201,168,76,.06);
+  --gold-b:rgba(201,168,76,.15);
+  --w:rgba(255,255,255,1);
+  --w70:rgba(255,255,255,.7);
+  --w40:rgba(255,255,255,.4);
+  --w20:rgba(255,255,255,.2);
+  --w08:rgba(255,255,255,.08);
+  --w04:rgba(255,255,255,.04);
+  --border:rgba(255,255,255,.07);
+  --green:#30D158;
+  --blue:#2997FF;
+  --serif:'Instrument Serif',Georgia,serif;
+  --sans:'DM Sans',-apple-system,sans-serif;
+  --r:20px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--bg);color:var(--w);font-family:var(--sans);-webkit-font-smoothing:antialiased;line-height:1.6;overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:rgba(5,5,5,.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:.5px solid var(--border)}
+.nav-logo{font-family:var(--serif);font-size:20px;color:var(--gold);letter-spacing:1px;text-decoration:none}
+.nav-right{display:flex;align-items:center;gap:12px}
+.nav-pill{font-size:11px;color:rgba(201,168,76,.6);border:.5px solid var(--gold-b);border-radius:20px;padding:4px 12px;background:var(--gold2);letter-spacing:.5px}
+.nav-install{font-size:12px;color:var(--w40);cursor:pointer;border:.5px solid var(--border);border-radius:10px;padding:5px 12px;background:var(--w04);transition:all .2s;display:none}
+.nav-install:hover{color:var(--w);border-color:var(--w20)}
+.nav-install.show{display:block}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 24px 60px;position:relative;overflow:hidden}
+.hero-noise{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");opacity:.4;pointer-events:none}
+.hero-glow{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.06) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.hero-eye{font-size:10px;font-weight:500;letter-spacing:3px;color:var(--w20);text-transform:uppercase;margin-bottom:32px;position:relative}
+.hero-title{font-family:var(--serif);font-size:clamp(48px,10vw,96px);font-weight:400;line-height:1.05;letter-spacing:-2px;margin-bottom:24px;position:relative}
+.hero-title em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:17px;font-weight:300;color:var(--w40);line-height:1.8;max-width:480px;margin:0 auto 48px;position:relative}
+.hero-chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:48px;position:relative}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:var(--w04);border:.5px solid var(--border);border-radius:100px;font-size:11px;color:var(--w40)}
+.chip-dot{width:5px;height:5px;border-radius:50%}
+.dot-g{background:var(--green);box-shadow:0 0 6px rgba(48,209,88,.5)}
+.dot-gold{background:var(--gold)}
+.dot-b{background:var(--blue)}
+.hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative}
+.btn-primary{background:var(--gold);color:#000;border:none;border-radius:14px;padding:14px 28px;font-size:15px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:opacity .2s,transform .1s;letter-spacing:-.2px}
+.btn-primary:hover{opacity:.9}
+.btn-primary:active{transform:scale(.98)}
+.btn-ghost{background:transparent;color:var(--w40);border:.5px solid var(--border);border-radius:14px;padding:14px 28px;font-size:15px;font-weight:400;cursor:pointer;font-family:var(--sans);transition:all .2s}
+.btn-ghost:hover{color:var(--w);border-color:var(--w20)}
+
+/* DIVIDER */
+.div-line{height:.5px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:0}
+
+/* SECTIONS */
+.sec{max-width:900px;margin:0 auto;padding:80px 24px}
+.s-eye{font-size:10px;font-weight:500;letter-spacing:3px;color:var(--w20);text-transform:uppercase;margin-bottom:20px}
+.s-title{font-family:var(--serif);font-size:clamp(28px,5vw,52px);font-weight:400;line-height:1.15;letter-spacing:-.5px;margin-bottom:14px}
+.s-title em{font-style:italic;color:var(--gold)}
+.s-sub{font-size:15px;font-weight:300;color:var(--w40);line-height:1.8;max-width:520px;margin-bottom:48px}
+
+/* APP CARD - MAIN */
+.app-wrap{background:var(--w04);border:.5px solid var(--border);border-radius:24px;overflow:hidden}
+.app-topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:.5px solid var(--border);background:rgba(0,0,0,.3)}
+.app-title{font-size:13px;font-weight:500;color:var(--w70);letter-spacing:.5px}
+.app-badge{font-size:10px;color:rgba(201,168,76,.5);border:.5px solid var(--gold-b);border-radius:20px;padding:3px 10px;background:var(--gold2)}
+.app-body{padding:20px}
+.app-tabs{display:flex;gap:6px;margin-bottom:16px}
+.tab{flex:1;padding:9px 8px;background:var(--w04);border:.5px solid var(--border);border-radius:10px;font-size:12px;color:var(--w40);text-align:center;cursor:pointer;transition:all .2s;font-family:var(--sans)}
+.tab.on{background:var(--gold);color:#000;border-color:var(--gold);font-weight:500}
+.tab-panel{display:none}
+.tab-panel.on{display:block}
+
+/* YOUTUBE PANEL */
+textarea.yt-input{width:100%;background:rgba(0,0,0,.4);border:.5px solid var(--border);border-radius:12px;color:var(--w);font-size:13px;line-height:1.7;padding:12px 14px;resize:none;min-height:120px;font-family:var(--sans);outline:none;transition:border-color .2s}
+textarea.yt-input:focus{border-color:var(--gold-b)}
+textarea.yt-input::placeholder{color:var(--w20)}
+.yt-url-row{display:flex;gap:8px;margin-bottom:10px}
+.yt-url-input{flex:1;background:rgba(0,0,0,.4);border:.5px solid var(--border);border-radius:10px;color:var(--w);font-size:13px;padding:10px 12px;font-family:var(--sans);outline:none;transition:border-color .2s}
+.yt-url-input:focus{border-color:var(--gold-b)}
+.yt-url-input::placeholder{color:var(--w20)}
+.btn-sm{padding:9px 16px;border-radius:10px;font-size:12px;font-weight:500;cursor:pointer;font-family:var(--sans);border:none;transition:all .2s}
+.btn-gold-sm{background:var(--gold);color:#000}
+.btn-gold-sm:hover{opacity:.9}
+.btn-outline-sm{background:transparent;color:var(--w40);border:.5px solid var(--border)}
+.btn-outline-sm:hover{color:var(--w);border-color:var(--w20)}
+.lang-row{display:flex;gap:8px;align-items:center;margin-bottom:10px}
+.lang-sel{flex:1;background:rgba(0,0,0,.4);border:.5px solid var(--border);border-radius:10px;color:var(--w);font-size:12px;padding:9px 12px;font-family:var(--sans);outline:none}
+.lang-sel option{background:#0f0f0f}
+.mode-pills{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.mode-pill{padding:5px 12px;border-radius:20px;font-size:11px;cursor:pointer;border:.5px solid var(--border);color:var(--w40);background:transparent;font-family:var(--sans);transition:all .2s}
+.mode-pill.on{background:rgba(201,168,76,.1);border-color:var(--gold-b);color:var(--gold)}
+.result-box{background:rgba(0,0,0,.3);border:.5px solid rgba(201,168,76,.1);border-radius:12px;padding:14px;font-size:13px;line-height:1.8;color:var(--w70);white-space:pre-wrap;display:none;margin-top:10px}
+.result-box.show{display:block}
+.loading-row{display:none;align-items:center;gap:10px;padding:16px 0;justify-content:center}
+.loading-row.show{display:flex}
+.ldots{display:flex;gap:4px}
+.ld{width:5px;height:5px;border-radius:50%;background:var(--gold);animation:ldp 1.2s ease-in-out infinite}
+.ld:nth-child(2){animation-delay:.2s}
+.ld:nth-child(3){animation-delay:.4s}
+@keyframes ldp{0%,100%{opacity:.15;transform:scale(.7)}50%{opacity:1;transform:scale(1.1)}}
+.loading-txt{font-size:12px;color:rgba(201,168,76,.4);letter-spacing:.5px}
+.err-row{display:none;padding:10px 14px;background:rgba(255,60,60,.05);border:.5px solid rgba(255,60,60,.15);border-radius:10px;font-size:12px;color:rgba(255,100,100,.7);margin-top:8px;line-height:1.6}
+.err-row.show{display:block}
+.action-row{display:flex;gap:6px;margin-top:10px}
+.eco-row{display:none;font-size:11px;color:rgba(201,168,76,.4);padding:8px 12px;background:var(--gold2);border:.5px solid var(--gold-b);border-radius:8px;margin-top:8px;line-height:1.6}
+.eco-row.show{display:block}
+
+/* SERTARE PANEL */
+.drawer-list{display:flex;flex-direction:column;gap:8px}
+.drawer-card{background:rgba(0,0,0,.3);border:.5px solid var(--border);border-radius:14px;overflow:hidden}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;cursor:pointer;transition:background .2s}
+.drawer-head:hover{background:var(--w04)}
+.d-name{font-size:13px;font-weight:500;color:var(--w70)}
+.d-meta{font-size:10px;color:var(--w20);margin-top:2px}
+.d-chevron{font-size:11px;color:var(--w20);transition:transform .3s}
+.d-chevron.open{transform:rotate(180deg)}
+.drawer-body{display:none;padding:0 14px 14px;border-top:.5px solid var(--border)}
+.drawer-body.open{display:block}
+.shelf-item{padding:10px 0;border-bottom:.5px solid rgba(255,255,255,.04);cursor:pointer}
+.shelf-item:last-child{border-bottom:none}
+.shelf-item:hover .shelf-title{color:var(--gold)}
+.shelf-title{font-size:12px;color:var(--w40);transition:color .2s}
+.shelf-comp{font-size:10px;color:rgba(201,168,76,.35);margin-top:2px}
+.no-drawers{text-align:center;padding:24px;font-size:13px;color:var(--w20)}
+.add-drawer-row{display:flex;gap:8px;margin-top:10px}
+.add-input{flex:1;background:rgba(0,0,0,.4);border:.5px solid var(--border);border-radius:10px;color:var(--w);font-size:13px;padding:9px 12px;font-family:var(--sans);outline:none}
+.add-input:focus{border-color:var(--gold-b)}
+.add-input::placeholder{color:var(--w20)}
+
+/* SETTINGS PANEL */
+.set-row{display:flex;flex-direction:column;gap:8px}
+.set-item{padding:14px;background:rgba(0,0,0,.3);border:.5px solid var(--border);border-radius:12px}
+.set-label{font-size:10px;color:var(--w20);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
+.set-input{width:100%;background:transparent;border:none;color:var(--w);font-size:13px;font-family:var(--sans);outline:none}
+.set-input::placeholder{color:var(--w20)}
+.set-link{font-size:11px;color:rgba(41,151,255,.5);text-decoration:none;display:block;margin-top:6px}
+.set-status{font-size:11px;padding:4px 10px;border-radius:6px;display:inline-block;margin-top:6px}
+.ss-ok{background:rgba(48,209,88,.08);color:rgba(48,209,88,.6)}
+.ss-no{background:rgba(255,80,80,.08);color:rgba(255,80,80,.5)}
+.stats-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.stat-m{background:var(--w04);border:.5px solid var(--border);border-radius:10px;padding:10px;text-align:center}
+.stat-mn{font-size:18px;font-weight:500;color:var(--gold)}
+.stat-ml{font-size:9px;color:var(--w20);margin-top:2px;letter-spacing:.5px}
+
+/* FEATURES GRID */
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-bottom:48px}
+.feat-card{padding:24px;background:var(--w04);border:.5px solid var(--border);border-radius:20px;transition:border-color .2s}
+.feat-card:hover{border-color:var(--w20)}
+.feat-card.gold{background:var(--gold2);border-color:var(--gold-b)}
+.feat-icon{font-size:20px;margin-bottom:14px}
+.feat-title{font-size:15px;font-weight:500;margin-bottom:8px}
+.feat-desc{font-size:13px;font-weight:300;color:var(--w40);line-height:1.7}
+.feat-tag{display:inline-block;margin-top:12px;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:3px 8px;border-radius:20px}
+.ft-live{background:rgba(48,209,88,.08);color:rgba(48,209,88,.6);border:.5px solid rgba(48,209,88,.15)}
+.ft-soon{background:rgba(41,151,255,.08);color:rgba(41,151,255,.5);border:.5px solid rgba(41,151,255,.15)}
+
+/* QUOTE */
+.quote-sec{text-align:center;padding:80px 24px;border-top:.5px solid var(--border);border-bottom:.5px solid var(--border)}
+.q-text{font-family:var(--serif);font-style:italic;font-size:clamp(22px,4vw,42px);font-weight:400;color:var(--w40);max-width:600px;margin:0 auto 16px;line-height:1.3}
+.q-text em{font-style:normal;color:var(--w)}
+.q-by{font-size:10px;letter-spacing:2px;color:var(--w20);text-transform:uppercase}
+
+/* UNIVERSE PORTAL */
+.universe-sec{padding:80px 24px;text-align:center;position:relative;overflow:hidden}
+.universe-glow{position:absolute;width:800px;height:400px;background:radial-gradient(ellipse,rgba(201,168,76,.04) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.universe-inner{max-width:600px;margin:0 auto;position:relative}
+.uni-eye{font-size:10px;letter-spacing:3px;color:var(--w20);text-transform:uppercase;margin-bottom:24px}
+.uni-title{font-family:var(--serif);font-size:clamp(32px,6vw,64px);font-weight:400;line-height:1.1;letter-spacing:-1px;margin-bottom:16px}
+.uni-title em{font-style:italic;color:var(--gold)}
+.uni-sub{font-size:15px;font-weight:300;color:var(--w40);line-height:1.8;margin-bottom:36px}
+.uni-btn{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:#000;border:none;border-radius:16px;padding:16px 32px;font-size:16px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:opacity .2s,transform .1s;text-decoration:none}
+.uni-btn:hover{opacity:.9}
+.uni-btn:active{transform:scale(.98)}
+.uni-arrow{font-size:18px;transition:transform .2s}
+.uni-btn:hover .uni-arrow{transform:translateX(3px)}
+.coffee-wrap{margin-top:24px}
+.coffee-link{font-size:13px;color:rgba(201,168,76,.4);cursor:pointer;text-decoration:none;transition:color .2s;border-bottom:.5px solid rgba(201,168,76,.15);padding-bottom:2px}
+.coffee-link:hover{color:var(--gold)}
+
+/* INSTALL BANNER */
+.install-banner{display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:200;background:rgba(15,15,15,.95);border:.5px solid var(--border);border-radius:16px;padding:14px 20px;backdrop-filter:blur(20px);max-width:360px;width:calc(100% - 40px)}
+.install-banner.show{display:flex;align-items:center;gap:12px}
+.ib-icon{width:36px;height:36px;background:var(--gold2);border:.5px solid var(--gold-b);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.ib-text{flex:1}
+.ib-title{font-size:13px;font-weight:500;margin-bottom:2px}
+.ib-sub{font-size:11px;color:var(--w40)}
+.ib-btn{background:var(--gold);color:#000;border:none;border-radius:10px;padding:8px 14px;font-size:12px;font-weight:500;cursor:pointer;font-family:var(--sans);white-space:nowrap}
+.ib-close{color:var(--w20);cursor:pointer;font-size:16px;flex-shrink:0;padding:4px}
+
+/* FOOTER */
+footer{padding:32px 24px;border-top:.5px solid var(--border);text-align:center}
+.f-logo{font-family:var(--serif);font-size:18px;color:var(--gold);margin-bottom:16px}
+.f-links{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:14px}
+.f-link{font-size:12px;color:var(--w20);text-decoration:none;transition:color .2s}
+.f-link:hover{color:var(--w40)}
+.f-copy{font-size:11px;color:rgba(255,255,255,.12);line-height:1.8}
+
+/* UNIVERSE MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:300;display:none;overflow-y:auto}
+.modal-overlay.show{display:block}
+.modal-inner{max-width:800px;margin:0 auto;padding:60px 24px}
+.modal-close{position:fixed;top:20px;right:20px;background:var(--w08);border:.5px solid var(--border);border-radius:10px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:var(--w40);transition:all .2s;z-index:301}
+.modal-close:hover{background:var(--w20);color:var(--w)}
+.m-eye{font-size:10px;letter-spacing:3px;color:var(--w20);text-transform:uppercase;margin-bottom:20px}
+.m-title{font-family:var(--serif);font-size:clamp(32px,6vw,60px);font-weight:400;line-height:1.1;letter-spacing:-1px;margin-bottom:16px}
+.m-title em{font-style:italic;color:var(--gold)}
+.m-sub{font-size:15px;font-weight:300;color:var(--w40);line-height:1.8;margin-bottom:48px;max-width:520px}
+.m-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:40px}
+.m-card{padding:22px;background:var(--w04);border:.5px solid var(--border);border-radius:16px}
+.m-card.g{background:var(--gold2);border-color:var(--gold-b)}
+.m-icon{font-size:18px;margin-bottom:12px}
+.m-ctitle{font-size:14px;font-weight:500;margin-bottom:6px}
+.m-cdesc{font-size:12px;font-weight:300;color:var(--w40);line-height:1.7}
+.m-cta{text-align:center;padding:40px 0}
+.m-cta-title{font-family:var(--serif);font-size:28px;font-weight:400;margin-bottom:12px}
+.m-cta-sub{font-size:14px;color:var(--w40);margin-bottom:28px}
+.m-cta-btn{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#000;border:none;border-radius:14px;padding:14px 28px;font-size:15px;font-weight:500;cursor:pointer;font-family:var(--sans);text-decoration:none;transition:opacity .2s}
+.m-cta-btn:hover{opacity:.9}
+
+@media(max-width:600px){
+  .hero-title{letter-spacing:-1px}
+  .feat-grid{grid-template-columns:1fr}
+  .app-tabs{flex-wrap:wrap}
+  .tab{font-size:11px;padding:8px 6px}
+  .hero-cta{flex-direction:column;align-items:center}
+  .btn-primary,.btn-ghost{width:100%;max-width:280px}
+}
+
+/* Animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .6s ease both}
+.fade-up-2{animation:fadeUp .6s .1s ease both}
+.fade-up-3{animation:fadeUp .6s .2s ease both}
 </style>
 </head>
 <body>
 
-<div class="topbar">
-  <div class="logo-top">VV <span>STUDIO LITTLE</span></div>
-  <div class="top-actions">
-    <div class="icon-btn" onclick="openSettings()" title="Setări API">⚙️</div>
-    <div class="icon-btn" onclick="openUsage()" title="Statistici">📊</div>
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">LEA</a>
+  <div class="nav-right">
+    <span class="nav-pill">Beta · 2026</span>
+    <div class="nav-install" id="navInstall" onclick="triggerInstall()">⊕ Instalează</div>
   </div>
-</div>
+</nav>
 
+<!-- HERO -->
 <div class="hero">
-  <div class="hero-badge">✦ BETA · SUVERANITATE DIGITALĂ</div>
-  <div class="hero-title"><span class="gold">LEA</span> transformă<br>YouTube în cunoaștere</div>
-  <div class="hero-sub">Datele tale rămân la tine. Zero cloud. Zero urmărire.<br>Powered by Gemini · Local Storage · VV Ecosystem</div>
-</div>
-
-<div class="stats-row">
-  <div class="stat-card">
-    <div class="stat-num" id="statSeeds">0</div>
-    <div class="stat-label">SEMINȚE</div>
+  <div class="hero-noise"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-eye fade-up">VV · Inteligență Hibridă Urbană · Romania 2026</div>
+  <h1 class="hero-title fade-up-2">Nu știe totul.<br><em>Te știe pe tine.</em></h1>
+  <p class="hero-sub fade-up-3">LEA transformă orice video YouTube în cunoaștere. Traduce în timp real. Salvează în tipare semantice — nu fișiere grele. Funcționează offline. Fără abonament.</p>
+  <div class="hero-chips fade-up-3">
+    <div class="chip"><div class="chip-dot dot-g"></div>100% local pe device</div>
+    <div class="chip"><div class="chip-dot dot-gold"></div>Compresie semantică</div>
+    <div class="chip"><div class="chip-dot dot-b"></div>Traducere AI hibridă</div>
   </div>
-  <div class="stat-card">
-    <div class="stat-num" id="statWords">0</div>
-    <div class="stat-label">CUVINTE</div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-num" id="statEco">0%</div>
-    <div class="stat-label">ECONOMIE</div>
+  <div class="hero-cta fade-up-3">
+    <button class="btn-primary" onclick="document.getElementById('app').scrollIntoView({behavior:'smooth'})">Încearcă LEA gratuit</button>
+    <button class="btn-ghost" onclick="openUniverse()">Universul VV →</button>
   </div>
 </div>
 
-<div class="section">
-  <div class="glass-card">
-    <div class="section-label">✦ Transcript YouTube</div>
-    <textarea id="transcriptIn" placeholder="Lipește transcriptul YouTube aici...&#10;&#10;Pe YouTube: video → ··· → Transcript → Copiază tot textul"></textarea>
-    <button class="btn-gold" id="transformBtn" onclick="transform()">✦ Transformă în Semințe</button>
-    <div class="error-box" id="errBox"></div>
-    <div class="loading-state" id="loadDiv">
-      <div class="pulse-row"><div class="pulse-dot"></div><div class="pulse-dot"></div><div class="pulse-dot"></div></div>
-      <div class="loading-text">LEA procesează semințele...</div>
+<div class="div-line"></div>
+
+<!-- APP -->
+<div class="sec" id="app">
+  <div class="s-eye">Instrumentul</div>
+  <h2 class="s-title">LEA lucrează.<br><em>Tu înveți.</em></h2>
+  <p class="s-sub">Lipește un transcript YouTube, alege ce vrei să facă LEA, primești esența în secunde. Datele tale rămân pe device-ul tău.</p>
+
+  <div class="app-wrap">
+    <div class="app-topbar">
+      <div class="app-title">LEA · Semantic Studio</div>
+      <div class="app-badge" id="appKeyBadge">⚙ Configurează</div>
     </div>
-    <div class="result-area" id="resultArea"></div>
-    <div class="eco-bar" id="ecoBar"></div>
-    <div class="actions-row" id="actionsRow" style="display:none">
-      <button class="btn-ghost" onclick="copyResult()">📋 Copiază</button>
-      <button class="btn-ghost" id="voiceBtn" onclick="speakResult()">🔊 Ascultă LEA</button>
-      <button class="btn-ghost" onclick="shareResult()">↗ Trimite</button>
+    <div class="app-body">
+      <!-- TABS -->
+      <div class="app-tabs">
+        <div class="tab on" onclick="switchTab('seeds',this)">🌱 Semințe</div>
+        <div class="tab" onclick="switchTab('translate',this)">🌐 Traducere</div>
+        <div class="tab" onclick="switchTab('drawers',this)">📁 Sertare</div>
+        <div class="tab" onclick="switchTab('settings',this)">⚙ Setări</div>
+      </div>
+
+      <!-- SEEDS TAB -->
+      <div class="tab-panel on" id="tab-seeds">
+        <div class="mode-pills">
+          <div class="mode-pill on" data-mode="vv" onclick="setMode(this)">✦ Standard</div>
+          <div class="mode-pill" data-mode="student" onclick="setMode(this)">🎓 Student</div>
+          <div class="mode-pill" data-mode="exam" onclick="setMode(this)">📝 Examen</div>
+          <div class="mode-pill" data-mode="quick" onclick="setMode(this)">⚡ Rapid</div>
+        </div>
+        <textarea class="yt-input" id="seedInput" placeholder="Lipește transcriptul YouTube aici...&#10;&#10;Pe YouTube: ··· → Transcript → copiază tot textul" rows="5"></textarea>
+        <div style="margin-top:8px;display:flex;gap:8px">
+          <select class="lang-sel" id="outputLang" style="flex:1">
+            <option value="ro">Output: Română</option>
+            <option value="en">Output: Engleză</option>
+            <option value="fr">Output: Franceză</option>
+            <option value="de">Output: Germană</option>
+            <option value="es">Output: Spaniolă</option>
+          </select>
+          <select class="lang-sel" id="drawerSel" style="flex:1">
+            <option value="">Fără sertar</option>
+          </select>
+        </div>
+        <div style="margin-top:10px">
+          <button class="btn-sm btn-gold-sm" style="width:100%;padding:12px" onclick="runSeeds()">✦ Transformă în Semințe</button>
+        </div>
+        <div class="err-row" id="seedErr"></div>
+        <div class="loading-row" id="seedLoad"><div class="ldots"><div class="ld"></div><div class="ld"></div><div class="ld"></div></div><div class="loading-txt" id="seedLoadTxt">LEA procesează...</div></div>
+        <div class="result-box" id="seedResult"></div>
+        <div class="eco-row" id="seedEco"></div>
+        <div class="action-row" id="seedActions" style="display:none">
+          <button class="btn-sm btn-outline-sm" onclick="copyResult('seedResult')">📋 Copiază</button>
+          <button class="btn-sm btn-outline-sm" id="speakBtn" onclick="speakResult()">🔊 Ascultă</button>
+          <button class="btn-sm btn-outline-sm" onclick="printResult()">📄 PDF</button>
+          <button class="btn-sm btn-outline-sm" onclick="shareResult()">↗ Trimite</button>
+        </div>
+      </div>
+
+      <!-- TRANSLATE TAB -->
+      <div class="tab-panel" id="tab-translate">
+        <div class="yt-url-row">
+          <input class="yt-url-input" id="ytUrl" placeholder="URL YouTube (opțional — pentru context)" type="url">
+        </div>
+        <textarea class="yt-input" id="translateInput" placeholder="Lipește textul sau transcriptul de tradus..." rows="5"></textarea>
+        <div class="lang-row" style="margin-top:8px">
+          <select class="lang-sel" id="fromLang" style="flex:1">
+            <option value="auto">Auto-detect limbă</option>
+            <option value="en">Engleză</option>
+            <option value="ro">Română</option>
+            <option value="fr">Franceză</option>
+            <option value="de">Germană</option>
+            <option value="es">Spaniolă</option>
+            <option value="it">Italiană</option>
+            <option value="pt">Portugheză</option>
+            <option value="ru">Rusă</option>
+            <option value="zh">Chineză</option>
+            <option value="ja">Japoneză</option>
+            <option value="ar">Arabă</option>
+          </select>
+          <div style="color:var(--w20);font-size:13px">→</div>
+          <select class="lang-sel" id="toLang" style="flex:1">
+            <option value="ro">Română</option>
+            <option value="en">Engleză</option>
+            <option value="fr">Franceză</option>
+            <option value="de">Germană</option>
+            <option value="es">Spaniolă</option>
+            <option value="it">Italiană</option>
+            <option value="pt">Portugheză</option>
+          </select>
+        </div>
+        <div class="mode-pills" style="margin-top:8px">
+          <div class="mode-pill on" data-tmode="natural" onclick="setTMode(this)">Natural</div>
+          <div class="mode-pill" data-tmode="academic" onclick="setTMode(this)">Academic</div>
+          <div class="mode-pill" data-tmode="simple" onclick="setTMode(this)">Simplu</div>
+          <div class="mode-pill" data-tmode="subtitle" onclick="setTMode(this)">Subtitrare</div>
+        </div>
+        <div style="margin-top:10px">
+          <button class="btn-sm btn-gold-sm" style="width:100%;padding:12px" onclick="runTranslate()">🌐 Traduce cu LEA</button>
+        </div>
+        <div class="err-row" id="transErr"></div>
+        <div class="loading-row" id="transLoad"><div class="ldots"><div class="ld"></div><div class="ld"></div><div class="ld"></div></div><div class="loading-txt">LEA traduce...</div></div>
+        <div class="result-box" id="transResult"></div>
+        <div class="action-row" id="transActions" style="display:none">
+          <button class="btn-sm btn-outline-sm" onclick="copyResult('transResult')">📋 Copiază</button>
+          <button class="btn-sm btn-outline-sm" onclick="speakTranslation()">🔊 Ascultă</button>
+          <button class="btn-sm btn-outline-sm" onclick="printTranslation()">📄 Export</button>
+        </div>
+      </div>
+
+      <!-- DRAWERS TAB -->
+      <div class="tab-panel" id="tab-drawers">
+        <div class="add-drawer-row" style="margin-bottom:12px">
+          <input class="add-input" id="newDrawerName" placeholder="Nume sertar nou (ex: Chimie, Marketing)" maxlength="30">
+          <button class="btn-sm btn-gold-sm" onclick="addDrawer()">+ Adaugă</button>
+        </div>
+        <div class="drawer-list" id="drawerList">
+          <div class="no-drawers">Niciun sertar. Adaugă primul tău sertar de cunoaștere.</div>
+        </div>
+      </div>
+
+      <!-- SETTINGS TAB -->
+      <div class="tab-panel" id="tab-settings">
+        <div class="set-row">
+          <div class="set-item">
+            <div class="set-label">Cheie Gemini API</div>
+            <input class="set-input" type="password" id="apiKeySet" placeholder="AIza..." autocomplete="off" oninput="saveKeyLive()">
+            <a class="set-link" href="https://aistudio.google.com/app/apikey" target="_blank">→ Obține cheia gratuită Google AI Studio ↗</a>
+            <div id="keyStatusSet" class="set-status ss-no">⚠ Lipsește cheia — LEA e dezactivată</div>
+          </div>
+          <div class="set-item">
+            <div class="set-label">Statistici locale</div>
+            <div class="stats-mini">
+              <div class="stat-m"><div class="stat-mn" id="stSessions">0</div><div class="stat-ml">SESIUNI</div></div>
+              <div class="stat-m"><div class="stat-mn" id="stPatterns">0</div><div class="stat-ml">TIPARE</div></div>
+              <div class="stat-m"><div class="stat-mn" id="stEco">0%</div><div class="stat-ml">COMPRESIE</div></div>
+            </div>
+          </div>
+          <div class="set-item">
+            <div class="set-label">Date locale</div>
+            <button class="btn-sm btn-outline-sm" onclick="clearData()" style="width:100%;color:rgba(255,80,80,.5);border-color:rgba(255,80,80,.15)">✕ Șterge toate datele locale</button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
 
-<div class="section">
-  <div class="glass-card">
-    <div class="section-label">✦ Istoric local</div>
-    <div id="historyList"><div class="empty">Nicio sămânță salvată încă</div></div>
-    <div class="divider"></div>
-    <button class="btn-ghost" style="width:100%;margin-top:8px;color:rgba(255,80,80,0.5);border-color:rgba(255,80,80,0.12)" onclick="clearAll()">✕ Șterge tot istoricul</button>
-  </div>
-</div>
+<div class="div-line"></div>
 
-<div class="coffee-section">
-  <div class="coffee-text">
-    Sistemul e gratuit — rulează local pe dispozitivul tău.<br>
-    <span class="coffee-name">Dacă LEA ți-a salvat azi 30 de minute,<br>dă-mi și mie de o cafea să lucrez la VV Hybrid. ☕<br>Suntem în asta împreună.</span>
-  </div>
- <button class="btn-coffee" onclick="window.location.href='sustine.html'">☕ Trimite o cafea Arhitectului</button>
-</div>
-
-<div class="footer-promo">
-  <div class="promo-eyebrow">COMING SOON · 2025</div>
-  <div class="promo-title">VV Hybrid Universe</div>
-  <div class="promo-sub">Ecosistemul digital al viitorului unde fiecare cetățean contează și are voce. LEA este extensia creierului tău — misiuni reale în oraș, date complet locale, inteligență hibridă în buzunarul tău.</div>
-  <div class="promo-pills">
-    <span class="pill">✦ Misiuni urbane</span>
-    <span class="pill">✦ Date locale</span>
-    <span class="pill">✦ AI hibrid</span>
-    <span class="pill">✦ VV Coins</span>
-    <span class="pill">✦ Comunitate P2P</span>
-  </div>
-  <button class="btn-promo" onclick="window.location.href='https://github.com/VV-TECHNOLOGIES'">✦ Descoperă VV Ecosystem</button>
-</div>
-
-<!-- Settings Sheet -->
-<div class="overlay" id="settingsOverlay" onclick="if(event.target===this)closeSettings()">
-  <div class="sheet">
-    <div class="sheet-handle"></div>
-    <div class="sheet-title">⚙️ Setări LEA</div>
-    <div class="sheet-sub">Cheia ta Gemini rămâne salvată doar pe dispozitivul tău. Noi nu o vedem niciodată. Fiecare utilizator este responsabil de cheia proprie.</div>
-    <input type="password" id="apiKeyInput" placeholder="Cheia ta Gemini API (AIza...)" autocomplete="off" />
-    <a class="sheet-link" href="https://aistudio.google.com/app/apikey" target="_blank">→ Obține cheia gratuită de pe Google AI Studio ↗</a>
-    <div id="keyStatus"></div>
-    <div class="sheet-actions">
-      <button class="btn-save" onclick="saveKey()">✓ Salvează cheia</button>
-      <button class="btn-cancel" onclick="closeSettings()">Anulează</button>
+<!-- FEATURES -->
+<div class="sec">
+  <div class="s-eye">Cum funcționează</div>
+  <h2 class="s-title">Simplu afară.<br><em>SF înăuntru.</em></h2>
+  <p class="s-sub">LEA nu e un simplu chatbot. E un motor hibrid care comprimă cunoașterea în tipare semantice — nu fișiere grele.</p>
+  <div class="feat-grid">
+    <div class="feat-card gold">
+      <div class="feat-icon">⬡</div>
+      <div class="feat-title">Compresie Semantică</div>
+      <div class="feat-desc">În loc să salveze 5000 de cuvinte, LEA extrage 20 de tipare cheie. La reconstituire, regenerează esența din tipar. Ocupă de 100x mai puțin spațiu.</div>
+      <span class="feat-tag ft-live">Live acum</span>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🌐</div>
+      <div class="feat-title">Traducere AI Hibridă</div>
+      <div class="feat-desc">Traduce orice text sau transcript YouTube în 12 limbi. Mod natural, academic, subtitrare sau simplu. LEA înțelege contextul, nu doar cuvintele.</div>
+      <span class="feat-tag ft-live">Live acum</span>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🎓</div>
+      <div class="feat-title">Mod Student & Examen</div>
+      <div class="feat-desc">Activezi modul Student și LEA devine profesor universitar. Extrage concepte cheie, definiții și întrebări posibile de examen din orice curs YouTube.</div>
+      <span class="feat-tag ft-live">Live acum</span>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📁</div>
+      <div class="feat-title">Sertare Semantice</div>
+      <div class="feat-desc">Organizezi cunoașterea în sertare — Chimie, Marketing, Filosofie. LEA salvează tipare per context. Cu cât adaugi mai mult, cu atât LEA înțelege mai bine.</div>
+      <span class="feat-tag ft-live">Live acum</span>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🔊</div>
+      <div class="feat-title">Vocea LEA</div>
+      <div class="feat-desc">LEA îți citește semințele cu voce în limba ta. Înveți în autobuz, la cafea, în sală. Vocea e nativă în browser — zero costuri extra, funcționează offline.</div>
+      <span class="feat-tag ft-live">Live acum</span>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📲</div>
+      <div class="feat-title">Instalare pe Orice Device</div>
+      <div class="feat-desc">Nu e o aplicație din store. E mai bine. Se instalează direct pe home screen — Android, iPhone, laptop. Se deschide fără browser. Funcționează offline.</div>
+      <span class="feat-tag ft-live">Live acum</span>
     </div>
   </div>
 </div>
 
-<!-- Usage Sheet -->
-<div class="overlay" id="usageOverlay" onclick="if(event.target===this)closeUsage()">
-  <div class="sheet">
-    <div class="sheet-handle"></div>
-    <div class="sheet-title">📊 Statistici locale</div>
-    <div class="sheet-sub">Toate datele calculate local pe dispozitivul tău.</div>
-    <div id="usageContent"></div>
-    <div style="margin-top:20px">
-      <button class="btn-cancel" style="width:100%" onclick="closeUsage()">Închide</button>
+<div class="div-line"></div>
+
+<!-- QUOTE -->
+<div class="quote-sec">
+  <p class="q-text">"Construit de un singur om,<br>26 ani, Slobozia, pe un iPhone X.<br><em>Asta e povestea care nu se uită."</em></p>
+  <div class="q-by">VV Hybrid Universe · Povestea de Origine</div>
+</div>
+
+<!-- UNIVERSE PORTAL -->
+<div class="universe-sec">
+  <div class="universe-glow"></div>
+  <div class="universe-inner">
+    <div class="uni-eye">Ecosistemul VV</div>
+    <h2 class="uni-title">Ești gata pentru<br><em>Universul VV?</em></h2>
+    <p class="uni-sub">VV Beta e gratuit acum. Misiuni reale pe hartă. VV Coins. Inteligență urbană verificată fizic de oameni reali. LEA te știe pe tine — nu pe toată lumea.</p>
+    <a href="#" class="uni-btn" onclick="openUniverse();return false">
+      Vreau în Universul VV
+      <span class="uni-arrow">→</span>
+    </a>
+    <div class="coffee-wrap">
+      <a href="LINK_REVOLUT_AICI" class="coffee-link">☕ Dacă LEA ți-a salvat timp azi, dă-i Arhitectului o cafea</a>
     </div>
   </div>
 </div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">VV LEA</div>
+  <div class="f-links">
+    <a href="https://vv-technologies.github.io/vv-nexus/vv-now.html" class="f-link" target="_blank">VV NOW</a>
+    <a href="https://vv-technologies.github.io/vv-nexus/vv-architecture.html" class="f-link" target="_blank">Arhitectură</a>
+    <a href="https://vv-technologies.github.io/vv-nexus/" class="f-link" target="_blank">VV Nexus</a>
+    <a href="LINK_REVOLUT_AICI" class="f-link">☕ Cafea</a>
+  </div>
+  <div class="f-copy">VV Hybrid Universe · Beta · România · 2026<br>GDPR Compliant · Date locale · VV Charter v1.3</div>
+</footer>
+
+<!-- INSTALL BANNER -->
+<div class="install-banner" id="installBanner">
+  <div class="ib-icon">⬡</div>
+  <div class="ib-text">
+    <div class="ib-title">Instalează LEA</div>
+    <div class="ib-sub">Pe home screen — fără store</div>
+  </div>
+  <button class="ib-btn" onclick="triggerInstall()">Instalează</button>
+  <div class="ib-close" onclick="closeBanner()">✕</div>
+</div>
+
+<!-- UNIVERSE MODAL -->
+<div class="modal-overlay" id="universeModal">
+  <div class="modal-close" onclick="closeUniverse()">✕</div>
+  <div class="modal-inner">
+    <div class="m-eye">VV Hybrid Universe · Beta 2026</div>
+    <h2 class="m-title">Lea nu e un robot.<br><em>Te știe pe tine.</em></h2>
+    <p class="m-sub">VV Nexus e motorul din spate. VV Lea e fața umană. Împreună construiesc singurul AI urban care verifică adevărul pe stradă — prin oameni reali, nu prin internet.</p>
+
+    <div class="m-grid">
+      <div class="m-card g">
+        <div class="m-icon">⬡</div>
+        <div class="m-ctitle">VV Beta · Gratuit acum</div>
+        <div class="m-cdesc">Misiuni urbane pe hartă. VV Coins. Verificare fizică prin Insideri. Inteligență urbană reală pentru București — fără costuri.</div>
+      </div>
+      <div class="m-card">
+        <div class="m-icon">🗺️</div>
+        <div class="m-ctitle">Misiuni pe Hartă</div>
+        <div class="m-cdesc">Ești Insider — mergi în teren, verifici locații, raportezi adevărul. Primești VV Coins. Comunitatea beneficiază de informație reală.</div>
+      </div>
+      <div class="m-card">
+        <div class="m-icon">🧠</div>
+        <div class="m-ctitle">LEA Hibridă</div>
+        <div class="m-cdesc">LEA combină date din teren cu informații de pe net. Filtrează prin Nexus și îți dă adevărul curat. Nu internetul rece — realitatea validată.</div>
+      </div>
+      <div class="m-card">
+        <div class="m-icon">🆔</div>
+        <div class="m-ctitle">VV ID · Anonim</div>
+        <div class="m-cdesc">Identitatea ta în ecosistem e un cod anonim. Tu știi cine ești. Ecosistemul te cunoaște prin comportament, nu prin date personale.</div>
+      </div>
+      <div class="m-card">
+        <div class="m-icon">⬡</div>
+        <div class="m-ctitle">Compresie Semantică</div>
+        <div class="m-cdesc">Revoluția stocării. LEA salvează tipare, nu fișiere. Ocupă de 100x mai puțin. Reconstituie orice la cerere. Viitorul cipurilor și memoriei.</div>
+      </div>
+      <div class="m-card">
+        <div class="m-icon">🔒</div>
+        <div class="m-ctitle">Privacy by Design</div>
+        <div class="m-cdesc">Tot ce LEA știe despre tine stă pe device-ul tău. VV nu vede nimic. GDPR complet. Ești stăpânul datelor tale.</div>
+      </div>
+    </div>
+
+    <div class="m-cta">
+      <div class="m-cta-title">Fii printre primii în VV Beta</div>
+      <div class="m-cta-sub">Gratuit acum. Comunitate reală. Misiuni reale. LEA care te știe pe tine.</div>
+      <a href="https://vv-technologies.github.io/vv-nexus/vv-now.html" class="m-cta-btn" target="_blank">
+        Intră în VV Beta →
+      </a>
+      <div style="margin-top:20px">
+        <a href="LINK_REVOLUT_AICI" class="coffee-link">☕ Susține Arhitectul cu o cafea</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PWA MANIFEST inline -->
+<script>
+const manifest={name:"VV LEA · Inteligență Hibridă",short_name:"VV LEA",description:"LEA transformă YouTube în cunoaștere. Hibrid AI urban.",start_url:"./",display:"standalone",background_color:"#050505",theme_color:"#050505",icons:[{src:"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' fill='%23050505'/><text y='130' x='20' font-size='120' fill='%23C9A84C'>⬡</text></svg>",sizes:"192x192",type:"image/svg+xml"},{src:"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' fill='%23050505'/><text y='360' x='40' font-size='320' fill='%23C9A84C'>⬡</text></svg>",sizes:"512x512",type:"image/svg+xml"}]};
+const blob=new Blob([JSON.stringify(manifest)],{type:'application/json'});
+document.getElementById('manifestLink').href=URL.createObjectURL(blob);
+</script>
 
 <script>
-const SK='vv_studio_v2';
-const UK='vv_gemini_key';
+// ─── STORAGE ───
+const SK='vv_lea_v1';
+const AK='vv_gemini_key';
+function D(){try{return JSON.parse(localStorage.getItem(SK))||{drawers:{},sessions:0,totalOrig:0,totalResult:0}}catch(e){return{drawers:{},sessions:0,totalOrig:0,totalResult:0}}}
+function SD(d){localStorage.setItem(SK,JSON.stringify(d))}
+function GK(){return localStorage.getItem(AK)||''}
+function SK2(k){if(k)localStorage.setItem(AK,k)}
 
-function getData(){
-  try{return JSON.parse(localStorage.getItem(SK))||{history:[],totalWords:0,totalOriginal:0,sessions:0}}
-  catch(e){return{history:[],totalWords:0,totalOriginal:0,sessions:0}}
+// ─── MODE STATE ───
+let currentMode='vv';
+let currentTMode='natural';
+let speaking=false;
+let deferredPrompt=null;
+
+function setMode(el){
+  document.querySelectorAll('.mode-pill[data-mode]').forEach(p=>p.classList.remove('on'));
+  el.classList.add('on');
+  currentMode=el.dataset.mode;
+  const ta=document.getElementById('seedInput');
+  const placeholders={vv:'Lipește transcriptul YouTube...',student:'Lipește cursul YouTube (mod student activ)...',exam:'Lipește materialul pentru examen...',quick:'Lipește orice text — răspuns rapid...'};
+  ta.placeholder=placeholders[currentMode]||placeholders.vv;
 }
-function saveData(d){localStorage.setItem(SK,JSON.stringify(d))}
-function getKey(){return localStorage.getItem(UK)||''}
-
-function updateStats(){
-  const d=getData();
-  document.getElementById('statSeeds').textContent=d.sessions||0;
-  document.getElementById('statWords').textContent=(d.totalWords||0).toLocaleString('ro-RO');
-  const eco=d.totalOriginal>0?Math.round((1-d.totalWords/d.totalOriginal)*100):0;
-  document.getElementById('statEco').textContent=eco+'%';
-}
-
-function renderHistory(){
-  const d=getData();
-  const el=document.getElementById('historyList');
-  if(!d.history||!d.history.length){
-    el.innerHTML='<div class="empty">Nicio sămânță salvată încă</div>';
-    return;
-  }
-  el.innerHTML=d.history.slice(0,10).map(h=>`
-    <div class="history-item">
-      <div class="h-date">${h.date}</div>
-      <div class="h-prev">${h.preview}</div>
-      <div class="h-words">✦ ${h.resultWords} cuvinte generate · economisit ${h.eco}%</div>
-    </div>`).join('');
+function setTMode(el){
+  document.querySelectorAll('.mode-pill[data-tmode]').forEach(p=>p.classList.remove('on'));
+  el.classList.add('on');
+  currentTMode=el.dataset.tmode;
 }
 
-async function transform(){
-  const txt=document.getElementById('transcriptIn').value.trim();
-  const btn=document.getElementById('transformBtn');
-  const err=document.getElementById('errBox');
-  const load=document.getElementById('loadDiv');
-  const result=document.getElementById('resultArea');
-  const eco=document.getElementById('ecoBar');
-  const acts=document.getElementById('actionsRow');
+// ─── TABS ───
+function switchTab(id,el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('tab-'+id).classList.add('on');
+  if(id==='drawers')renderDrawers();
+  if(id==='settings')renderSettings();
+}
 
-  err.className='error-box';
-  if(!txt){
-    err.textContent='Lipește un transcript înainte să transformi în semințe.';
-    err.className='error-box show';return;
-  }
-  if(txt.length<50){
-    err.textContent='Transcriptul e prea scurt. Adaugă mai mult text.';
-    err.className='error-box show';return;
-  }
+// ─── BUILD PROMPT ───
+function buildPrompt(text,mode,lang){
+  const langNames={ro:'Română',en:'Engleză',fr:'Franceză',de:'Germană',es:'Spaniolă'};
+  const l=langNames[lang]||'Română';
+  const prompts={
+    vv:`Ești LEA, asistentul VV Technologies. Transformă în Semințe de Cunoaștere. Direct, util, fără introduceri. Output în ${l}.
 
-  const key=getKey();
-  if(!key){
-    err.innerHTML='Lipsește cheia API Gemini. Apasă ⚙️ sus și adaugă cheia gratuită.<br><a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:rgba(255,215,0,0.6);font-size:12px">→ Obține cheia gratuită ↗</a>';
-    err.className='error-box show';return;
-  }
-
-  btn.disabled=true;
-  load.className='loading-state show';
-  result.className='result-area';
-  eco.className='eco-bar';
-  acts.style.display='none';
-
-  try{
-    const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        contents:[{parts:[{text:`Ești LEA, asistentul Arhitectului VV Technologies. Transformă acest transcript YouTube în Semințe de Cunoaștere. Fii direct, util, fără introduceri inutile. Răspunde în română.
-
-Format obligatoriu:
-🌱 ESENȚA
-(1-2 propoziții despre ce e videoul)
+🌱 ESENȚA (1-2 propoziții)
 
 💡 SEMINȚE CHEIE
 • (idee 1)
 • (idee 2)
 • (idee 3)
-• (idee 4 dacă e relevant)
 
-⚡ ACȚIUNEA LEA
-(1 lucru concret pe care îl poți face azi cu aceste informații)
+⚡ ACȚIUNEA LEA (1 lucru concret azi)`,
+    student:`Ești un profesor universitar de top. Analizează pentru un student eminent. Output în ${l}.
 
-Transcript:
-${txt.substring(0,4000)}`}]}]
-      })
+🎓 CONCEPTE CHEIE (cu definiții scurte)
+
+📚 IDEI PRINCIPALE (bullets clare)
+
+❓ ÎNTREBĂRI POSIBILE DE EXAMEN (3-5)
+
+⚡ ESENȚA (2 propoziții — ce să memorezi)`,
+    exam:`Ești un profesor care pregătește studenți pentru examen. Output în ${l}.
+
+📝 SUBIECT PRINCIPAL
+
+🔑 TERMENI DE REȚINUT (definiții scurte)
+
+❓ ÎNTREBĂRI TIPICE DE EXAMEN (5 întrebări cu răspunsuri scurte)
+
+⚠️ CAPCANE FRECVENTE (ce greșesc studenții)`,
+    quick:`Rezumă extrem de scurt și direct. Output în ${l}.
+
+▸ (punct 1)
+▸ (punct 2)
+▸ (punct 3)
+
+→ Concluzia în 1 propoziție`
+  };
+  return(prompts[mode]||prompts.vv)+'\n\nText:\n'+text.substring(0,4000);
+}
+
+// ─── SEEDS ───
+async function runSeeds(){
+  const txt=document.getElementById('seedInput').value.trim();
+  const key=GK();
+  const lang=document.getElementById('outputLang').value;
+  const drawerID=document.getElementById('drawerSel').value;
+  const errEl=document.getElementById('seedErr');
+  const loadEl=document.getElementById('seedLoad');
+  const resultEl=document.getElementById('seedResult');
+  const ecoEl=document.getElementById('seedEco');
+  const actEl=document.getElementById('seedActions');
+  const btn=document.querySelector('#tab-seeds .btn-gold-sm');
+
+  errEl.className='err-row';
+  if(!txt){errEl.textContent='Lipește un transcript înainte.';errEl.className='err-row show';return}
+  if(txt.length<30){errEl.textContent='Textul e prea scurt.';errEl.className='err-row show';return}
+  if(!key){errEl.innerHTML='Lipsește cheia Gemini. Mergi la tab-ul ⚙ Setări.<br><a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:rgba(41,151,255,.5);font-size:11px">→ Obține cheia gratuită ↗</a>';errEl.className='err-row show';return}
+
+  btn.disabled=true;
+  loadEl.className='loading-row show';
+  resultEl.className='result-box';
+  ecoEl.className='eco-row';
+  actEl.style.display='none';
+
+  const loadTxt=document.getElementById('seedLoadTxt');
+  const msgs=['LEA extrage tiparul semantic...','LEA procesează semințele...','LEA finalizează...'];
+  let mi=0;const li=setInterval(()=>{loadTxt.textContent=msgs[mi%msgs.length];mi++},1500);
+
+  try{
+    const prompt=buildPrompt(txt,currentMode,lang);
+    const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`,{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})
     });
-
     const data=await res.json();
-    if(data.error)throw new Error(data.error.message||'Eroare Gemini API');
-
+    if(data.error)throw new Error(data.error.message);
     const text=data.candidates[0].content.parts[0].text;
-    result.textContent=text;
-    result.className='result-area show';
-    acts.style.display='flex';
-
+    resultEl.textContent=text;
+    resultEl.className='result-box show';
+    actEl.style.display='flex';
     const origW=txt.split(/\s+/).length;
     const resW=text.split(/\s+/).length;
     const saved=Math.max(0,Math.round((1-resW/origW)*100));
-    eco.textContent=`✦ Original: ${origW} cuvinte → Semințe: ${resW} cuvinte · Timp economisit: ~${saved}%`;
-    eco.className='eco-bar show';
-
-    const d=getData();
+    ecoEl.textContent=`✦ ${origW} cuvinte → ${resW} semințe · Compresie ${saved}% · Mod: ${currentMode.toUpperCase()}`;
+    ecoEl.className='eco-row show';
+    const d=D();
     d.sessions=(d.sessions||0)+1;
-    d.totalWords=(d.totalWords||0)+resW;
-    d.totalOriginal=(d.totalOriginal||0)+origW;
-    d.history=d.history||[];
-    d.history.unshift({
-      date:new Date().toLocaleString('ro-RO'),
-      preview:txt.substring(0,80)+'...',
-      resultWords:resW,
-      eco:saved,
-      result:text
-    });
-    if(d.history.length>20)d.history.pop();
-    saveData(d);
+    d.totalOrig=(d.totalOrig||0)+origW;
+    d.totalResult=(d.totalResult||0)+resW;
+    if(drawerID&&d.drawers[drawerID]){
+      d.drawers[drawerID].shelves=d.drawers[drawerID].shelves||[];
+      d.drawers[drawerID].shelves.unshift({id:Date.now(),date:new Date().toLocaleString('ro-RO'),preview:txt.substring(0,60)+'...',result:text,compression:saved});
+      if(d.drawers[drawerID].shelves.length>20)d.drawers[drawerID].shelves.pop();
+    }
+    SD(d);
     updateStats();
-    renderHistory();
-
   }catch(e){
-    let msg='Eroare la procesare. ';
-    if(e.message&&e.message.includes('API_KEY'))msg+='Cheia API e invalidă.';
-    else if(e.message&&e.message.includes('quota'))msg+='Ai atins limita zilnică gratuită Gemini.';
+    let msg='Eroare: ';
+    if(e.message?.includes('API_KEY'))msg+='Cheie invalidă.';
+    else if(e.message?.includes('quota'))msg+='Limită zilnică atinsă.';
     else msg+=e.message||'Verifică conexiunea.';
-    err.textContent=msg;
-    err.className='error-box show';
+    errEl.textContent=msg;errEl.className='err-row show';
   }finally{
-    btn.disabled=false;
-    load.className='loading-state';
+    clearInterval(li);btn.disabled=false;loadEl.className='loading-row';
   }
 }
 
-function copyResult(){
-  const txt=document.getElementById('resultArea').textContent;
+// ─── TRANSLATE ───
+async function runTranslate(){
+  const txt=document.getElementById('translateInput').value.trim();
+  const key=GK();
+  const from=document.getElementById('fromLang').value;
+  const to=document.getElementById('toLang').value;
+  const errEl=document.getElementById('transErr');
+  const loadEl=document.getElementById('transLoad');
+  const resultEl=document.getElementById('transResult');
+  const actEl=document.getElementById('transActions');
+  const btn=document.querySelector('#tab-translate .btn-gold-sm');
+
+  errEl.className='err-row';
+  if(!txt){errEl.textContent='Adaugă text de tradus.';errEl.className='err-row show';return}
+  if(!key){errEl.innerHTML='Lipsește cheia Gemini. Mergi la ⚙ Setări.<br><a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:rgba(41,151,255,.5);font-size:11px">→ Obține cheia gratuită ↗</a>';errEl.className='err-row show';return}
+
+  const langNames={ro:'Română',en:'Engleză',fr:'Franceză',de:'Germană',es:'Spaniolă',it:'Italiană',pt:'Portugheză',ru:'Rusă',zh:'Chineză',ja:'Japoneză',ar:'Arabă',auto:'detectat automat'};
+  const tModes={natural:'Tonul trebuie să fie natural, curgător, ca un vorbitor nativ.',academic:'Tonul trebuie să fie academic, formal, precis.',simple:'Folosește limbaj simplu, ușor de înțeles.',subtitle:'Formatează ca subtitrare — propoziții scurte, naturale, max 8 cuvinte pe rând.'};
+
+  btn.disabled=true;
+  loadEl.className='loading-row show';
+  resultEl.className='result-box';
+  actEl.style.display='none';
+
+  try{
+    const fromStr=from==='auto'?'limba originală detectată automat':langNames[from];
+    const prompt=`Ești LEA, traducătorul hibrid VV. Traduce din ${fromStr} în ${langNames[to]||to}. ${tModes[currentTMode]||tModes.natural} Nu adăuga explicații sau comentarii — doar traducerea.
+
+Text de tradus:
+${txt.substring(0,5000)}`;
+    const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`,{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})
+    });
+    const data=await res.json();
+    if(data.error)throw new Error(data.error.message);
+    const text=data.candidates[0].content.parts[0].text;
+    resultEl.textContent=text;
+    resultEl.className='result-box show';
+    actEl.style.display='flex';
+    const d=D();d.sessions=(d.sessions||0)+1;SD(d);updateStats();
+  }catch(e){
+    errEl.textContent='Eroare: '+(e.message||'Verifică conexiunea.');
+    errEl.className='err-row show';
+  }finally{
+    btn.disabled=false;loadEl.className='loading-row';
+  }
+}
+
+// ─── VOICE ───
+function speakResult(){
+  const txt=document.getElementById('seedResult').textContent;
+  const btn=document.getElementById('speakBtn');
   if(!txt)return;
-  navigator.clipboard.writeText(txt).then(()=>{
-    const btn=document.querySelector('#actionsRow .btn-ghost');
-    const orig=btn.textContent;
-    btn.textContent='✓ Copiat!';
-    setTimeout(()=>btn.textContent=orig,2000);
-  }).catch(()=>{
-    const ta=document.createElement('textarea');
-    ta.value=txt;document.body.appendChild(ta);
-    ta.select();document.execCommand('copy');
-    document.body.removeChild(ta);
+  if(speaking){window.speechSynthesis.cancel();speaking=false;btn.textContent='🔊 Ascultă';return}
+  const u=new SpeechSynthesisUtterance(txt);
+  u.lang='ro-RO';u.rate=0.95;
+  u.onend=()=>{speaking=false;btn.textContent='🔊 Ascultă'};
+  window.speechSynthesis.speak(u);
+  speaking=true;btn.textContent='⏹ Stop';
+}
+function speakTranslation(){
+  const txt=document.getElementById('transResult').textContent;
+  if(!txt)return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(txt);
+  u.lang=document.getElementById('toLang').value+'-'+document.getElementById('toLang').value.toUpperCase();
+  u.rate=0.95;
+  window.speechSynthesis.speak(u);
+}
+
+// ─── COPY / SHARE / PRINT ───
+function copyResult(id){
+  const txt=document.getElementById(id).textContent;
+  if(!txt)return;
+  navigator.clipboard.writeText(txt).catch(()=>{const t=document.createElement('textarea');t.value=txt;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t)});
+}
+function shareResult(){
+  const txt=document.getElementById('seedResult').textContent;
+  if(!txt)return;
+  if(navigator.share)navigator.share({title:'Semințe LEA',text:txt});
+  else copyResult('seedResult');
+}
+function printResult(){
+  const txt=document.getElementById('seedResult').textContent;
+  if(!txt)return;
+  const w=window.open('','_blank');
+  w.document.write(`<html><head><title>Semințe LEA</title><style>body{font-family:system-ui;padding:40px;line-height:1.8;max-width:700px;margin:0 auto}pre{white-space:pre-wrap}</style></head><body><pre>${txt}</pre></body></html>`);
+  w.document.close();w.print();
+}
+function printTranslation(){
+  const txt=document.getElementById('transResult').textContent;
+  if(!txt)return;
+  const w=window.open('','_blank');
+  w.document.write(`<html><head><title>Traducere LEA</title><style>body{font-family:system-ui;padding:40px;line-height:1.8;max-width:700px;margin:0 auto}pre{white-space:pre-wrap}</style></head><body><pre>${txt}</pre></body></html>`);
+  w.document.close();w.print();
+}
+
+// ─── DRAWERS ───
+function addDrawer(){
+  const name=document.getElementById('newDrawerName').value.trim();
+  if(!name)return;
+  const d=D();
+  const id='dr_'+Date.now();
+  d.drawers[d.drawers||{}];
+  d.drawers=d.drawers||{};
+  d.drawers[id]={name,shelves:[],created:new Date().toLocaleString('ro-RO')};
+  SD(d);
+  document.getElementById('newDrawerName').value='';
+  renderDrawers();
+  updateDrawerSelect();
+}
+function renderDrawers(){
+  const d=D();
+  const keys=Object.keys(d.drawers||{});
+  const el=document.getElementById('drawerList');
+  if(!keys.length){el.innerHTML='<div class="no-drawers">Niciun sertar. Adaugă primul tău sertar de cunoaștere.</div>';return}
+  el.innerHTML=keys.map(id=>{
+    const dr=d.drawers[id];
+    const sh=dr.shelves||[];
+    return`<div class="drawer-card">
+      <div class="drawer-head" onclick="toggleDrawer('${id}')">
+        <div><div class="d-name">${dr.name}</div><div class="d-meta">${sh.length} tipare salvate · ${dr.created||''}</div></div>
+        <div class="d-chevron" id="dc_${id}">▾</div>
+      </div>
+      <div class="drawer-body" id="db_${id}">
+        ${sh.length?sh.map(s=>`<div class="shelf-item" onclick="loadShelf('${s.result}')"><div class="shelf-title">${s.preview}</div><div class="shelf-comp">✦ Compresie ${s.compression}% · ${s.date}</div></div>`).join(''):'<div style="padding:12px 0;font-size:12px;color:var(--w20)">Sertar gol — generează semințe cu acest sertar selectat.</div>'}
+        <button class="btn-sm btn-outline-sm" style="width:100%;margin-top:8px;color:rgba(255,80,80,.4);border-color:rgba(255,80,80,.1)" onclick="deleteDrawer('${id}')">✕ Șterge sertar</button>
+      </div>
+    </div>`}).join('');
+}
+function toggleDrawer(id){
+  const body=document.getElementById('db_'+id);
+  const chev=document.getElementById('dc_'+id);
+  const open=body.classList.contains('open');
+  body.classList.toggle('open',!open);
+  chev.classList.toggle('open',!open);
+}
+function loadShelf(result){
+  document.getElementById('seedResult').textContent=result;
+  document.getElementById('seedResult').className='result-box show';
+  document.getElementById('seedActions').style.display='flex';
+  switchTab('seeds',document.querySelector('.tab'));
+  document.querySelector('.tab').classList.add('on');
+}
+function deleteDrawer(id){
+  if(!confirm('Ștergi sertarul?'))return;
+  const d=D();delete d.drawers[id];SD(d);renderDrawers();updateDrawerSelect();
+}
+function updateDrawerSelect(){
+  const d=D();
+  const sel=document.getElementById('drawerSel');
+  while(sel.options.length>1)sel.remove(1);
+  Object.keys(d.drawers||{}).forEach(id=>{
+    const opt=document.createElement('option');
+    opt.value=id;opt.textContent=d.drawers[id].name;
+    sel.appendChild(opt);
   });
 }
 
-let speaking=false;
-function speakResult(){
-  const txt=document.getElementById('resultArea').textContent;
-  const btn=document.getElementById('voiceBtn');
-  if(!txt)return;
-  if(speaking){
-    window.speechSynthesis.cancel();
-    speaking=false;
-    btn.textContent='🔊 Ascultă LEA';
-    btn.classList.remove('active');
-    return;
-  }
-  const u=new SpeechSynthesisUtterance(txt);
-  u.lang='ro-RO';u.rate=0.95;u.pitch=1;
-  u.onend=()=>{speaking=false;btn.textContent='🔊 Ascultă LEA';btn.classList.remove('active')};
-  u.onerror=()=>{speaking=false;btn.textContent='🔊 Ascultă LEA';btn.classList.remove('active')};
-  window.speechSynthesis.speak(u);
-  speaking=true;
-  btn.textContent='⏹ Oprește';
-  btn.classList.add('active');
+// ─── SETTINGS ───
+function saveKeyLive(){
+  const k=document.getElementById('apiKeySet').value.trim();
+  SK2(k);
+  const st=document.getElementById('keyStatusSet');
+  if(k){st.textContent='✓ Cheie salvată și activă';st.className='set-status ss-ok';document.getElementById('appKeyBadge').textContent='✓ LEA activă';}
+  else{st.textContent='⚠ Lipsește cheia';st.className='set-status ss-no';document.getElementById('appKeyBadge').textContent='⚙ Configurează';}
+}
+function renderSettings(){
+  const k=GK();
+  document.getElementById('apiKeySet').value=k;
+  const st=document.getElementById('keyStatusSet');
+  if(k){st.textContent='✓ Cheie salvată și activă';st.className='set-status ss-ok';}
+  else{st.textContent='⚠ Lipsește cheia — LEA e dezactivată';st.className='set-status ss-no';}
+  updateStats();
+}
+function updateStats(){
+  const d=D();
+  const totalP=Object.values(d.drawers||{}).reduce((a,dr)=>a+(dr.shelves||[]).length,0);
+  const eco=d.totalOrig>0?Math.round((1-d.totalResult/d.totalOrig)*100):0;
+  document.getElementById('stSessions').textContent=d.sessions||0;
+  document.getElementById('stPatterns').textContent=totalP;
+  document.getElementById('stEco').textContent=eco+'%';
+}
+function clearData(){
+  if(!confirm('Ștergi toate datele LEA locale?'))return;
+  localStorage.removeItem(SK);
+  document.getElementById('seedInput').value='';
+  document.getElementById('translateInput').value='';
+  document.getElementById('seedResult').className='result-box';
+  document.getElementById('transResult').className='result-box';
+  document.getElementById('seedActions').style.display='none';
+  document.getElementById('transActions').style.display='none';
+  updateStats();renderDrawers();updateDrawerSelect();
 }
 
-function shareResult(){
-  const txt=document.getElementById('resultArea').textContent;
-  if(!txt)return;
-  if(navigator.share){
-    navigator.share({title:'Semințe VV Studio',text:txt});
-  } else {
-    copyResult();
-    alert('Conținut copiat! Poți să îl lipești unde vrei.');
-  }
-}
+// ─── UNIVERSE MODAL ───
+function openUniverse(){document.getElementById('universeModal').classList.add('show');document.body.style.overflow='hidden'}
+function closeUniverse(){document.getElementById('universeModal').classList.remove('show');document.body.style.overflow=''}
 
-function openSettings(){
-  const k=getKey();
-  document.getElementById('apiKeyInput').value=k;
-  const s=document.getElementById('keyStatus');
-  s.innerHTML=k
-    ?'<div class="key-status key-ok">✓ Cheie salvată și activă</div>'
-    :'<div class="key-status key-missing">⚠ Nicio cheie — LEA e dezactivată</div>';
-  document.getElementById('settingsOverlay').className='overlay show';
+// ─── PWA INSTALL ───
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault();deferredPrompt=e;
+  document.getElementById('installBanner').classList.add('show');
+  document.getElementById('navInstall').classList.add('show');
+});
+window.addEventListener('appinstalled',()=>{
+  document.getElementById('installBanner').classList.remove('show');
+  document.getElementById('navInstall').classList.remove('show');
+});
+function triggerInstall(){
+  if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(()=>{deferredPrompt=null;closeBanner()});}
+  else{alert('Pe iOS: apasă Share → Add to Home Screen\nPe Chrome/Edge: apasă ⊕ din bara de adrese');}
 }
-function closeSettings(){document.getElementById('settingsOverlay').className='overlay'}
-function saveKey(){
-  const k=document.getElementById('apiKeyInput').value.trim();
-  if(k){
-    localStorage.setItem(UK,k);
-    const err=document.getElementById('errBox');
-    err.className='error-box';
-  }
-  closeSettings();
-}
+function closeBanner(){document.getElementById('installBanner').classList.remove('show')}
 
-function openUsage(){
-  const d=getData();
-  const eco=d.totalOriginal>0?Math.round((1-d.totalWords/d.totalOriginal)*100):0;
-  const storageKB=Math.round(JSON.stringify(d).length/1024*10)/10;
-  document.getElementById('usageContent').innerHTML=`
-    <div class="usage-row"><span class="usage-label">Semințe generate</span><span class="usage-val">${d.sessions||0}</span></div>
-    <div class="usage-row"><span class="usage-label">Cuvinte procesate total</span><span class="usage-val">${(d.totalOriginal||0).toLocaleString('ro-RO')}</span></div>
-    <div class="usage-row"><span class="usage-label">Cuvinte în semințe</span><span class="usage-val">${(d.totalWords||0).toLocaleString('ro-RO')}</span></div>
-    <div class="usage-row"><span class="usage-label">Economie medie timp</span><span class="usage-val">${eco}%</span></div>
-    <div class="usage-row"><span class="usage-label">Stocare locală folosită</span><span class="usage-val">${storageKB} KB</span></div>
-    <div class="usage-row"><span class="usage-label">Cheie API salvată</span><span class="usage-val">${getKey()?'✓ Da':'✗ Nu'}</span></div>
-  `;
-  document.getElementById('usageOverlay').className='overlay show';
-}
-function closeUsage(){document.getElementById('usageOverlay').className='overlay'}
+// ─── INIT ───
+const k=GK();
+if(k){document.getElementById('appKeyBadge').textContent='✓ LEA activă';}
+updateStats();updateDrawerSelect();
 
-function clearAll(){
-  if(confirm('Ștergi toată memoria locală VV Studio? Acțiunea e ireversibilă.')){
-    localStorage.removeItem(SK);
-    document.getElementById('transcriptIn').value='';
-    document.getElementById('resultArea').className='result-area';
-    document.getElementById('actionsRow').style.display='none';
-    document.getElementById('ecoBar').className='eco-bar';
-    updateStats();
-    renderHistory();
-  }
-}
-
-updateStats();
-renderHistory();
-
-if(!getKey()){
-  const err=document.getElementById('errBox');
-  err.innerHTML='👋 Prima utilizare? Apasă ⚙️ sus și adaugă cheia gratuită Gemini pentru a activa LEA.<br><a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:rgba(255,215,0,0.5);font-size:12px;display:inline-block;margin-top:4px">→ Obține cheia gratuită de pe Google AI Studio ↗</a>';
-  err.className='error-box show';
+// Show install hint for iOS
+if(/iphone|ipad|ipod/i.test(navigator.userAgent)&&!navigator.standalone){
+  setTimeout(()=>{document.getElementById('installBanner').classList.add('show')},3000);
 }
 </script>
 </body>
